@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Students>
+  <Student>
+    <CodeApogee>21010395</CodeApogee>
+    <Nom>ABBAD</Nom>
+    <Prenom>Ali</Prenom>
+    <DateNaissance>2000-01-01</DateNaissance>
+    <Modules>
+      <Module>
+        <Name>Programmation Orientée Objet &amp; XML</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Programmation</Name>
+            <Note>15.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>XML</Name>
+            <Note>14.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>14.5</NoteFinale>
+      </Module>
+      <Module>
+        <Name>Qualité &amp; Approche Processus</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Assurance Qualité</Name>
+            <Note>16.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>Méthodes Agiles</Name>
+            <Note>15.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>15.5</NoteFinale>
+      </Module>
+    </Modules>
+  </Student>
+  <Student>
+    <CodeApogee>21010396</CodeApogee>
+    <Nom>AMAR</Nom>
+    <Prenom>Youssef</Prenom>
+    <DateNaissance>1999-05-10</DateNaissance>
+    <Modules>
+      <Module>
+        <Name>Programmation Orientée Objet &amp; XML</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Programmation</Name>
+            <Note>17.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>XML</Name>
+            <Note>16.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>16.5</NoteFinale>
+      </Module>
+      <Module>
+        <Name>Qualité &amp; Approche Processus</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Assurance Qualité</Name>
+            <Note>18.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>Méthodes Agiles</Name>
+            <Note>17.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>17.5</NoteFinale>
+      </Module>
+    </Modules>
+  </Student>
+  <Student>
+    <CodeApogee>21010397</CodeApogee>
+    <Nom>BELLA</Nom>
+    <Prenom>Laila</Prenom>
+    <DateNaissance>2000-08-22</DateNaissance>
+    <Modules>
+      <Module>
+        <Name>Programmation Orientée Objet &amp; XML</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Programmation</Name>
+            <Note>12.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>XML</Name>
+            <Note>13.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>12.5</NoteFinale>
+      </Module>
+      <Module>
+        <Name>Qualité &amp; Approche Processus</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Assurance Qualité</Name>
+            <Note>14.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>Méthodes Agiles</Name>
+            <Note>13.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>13.5</NoteFinale>
+      </Module>
+    </Modules>
+  </Student>
+  <Student>
+    <CodeApogee>21010398</CodeApogee>
+    <Nom>CHERKAOUI</Nom>
+    <Prenom>Mohamed</Prenom>
+    <DateNaissance>2001-12-01</DateNaissance>
+    <Modules>
+      <Module>
+        <Name>Programmation Orientée Objet &amp; XML</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Programmation</Name>
+            <Note>15.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>XML</Name>
+            <Note>14.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>14.5</NoteFinale>
+      </Module>
+      <Module>
+        <Name>Qualité &amp; Approche Processus</Name>
+        <SubModules>
+          <SubModule>
+            <Name>Assurance Qualité</Name>
+            <Note>16.0</Note>
+          </SubModule>
+          <SubModule>
+            <Name>Méthodes Agiles</Name>
+            <Note>15.0</Note>
+          </SubModule>
+        </SubModules>
+        <NoteFinale>15.5</NoteFinale>
+      </Module>
+    </Modules>
+  </Student>
+</Students>

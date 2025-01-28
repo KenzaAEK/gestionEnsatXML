@@ -80,6 +80,20 @@ def transform_notes():
     else:
         return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
     
+@main.route('/transform/ratt', methods=['GET'])
+def transform_ratt():
+    """
+    Route pour transformer Notes_GINF2.xml en Notes_GINF2.html.
+    """
+    xml_file = "data_generated/notes/Notes_GINF2.xml"
+    xslt_file = "templates/Ratt.xslt"
+    output_file = "data_generated/notes/Ratt_GINF2.html"
+
+    if transform_xml_to_html(xml_file, xslt_file, output_file):
+        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    else:
+        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+    
 @main.route('/transform/modules', methods=['GET'])
 def transform_modules():
     """

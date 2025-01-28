@@ -15,7 +15,7 @@
                 </style>
             </head>
             <body>
-                <h1>Affichage globale</h1>
+                <h1>Affichage global</h1>
                 <table>
                     <thead>
                         <tr>
@@ -40,8 +40,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Parcours des étudiants -->
+                        <!-- Tri des étudiants par Nom puis Prénom -->
                         <xsl:for-each select="Students/Student">
+                            <xsl:sort select="Nom" order="ascending"/>
+                            <xsl:sort select="Prenom" order="ascending"/>
                             <tr>
                                 <td><xsl:value-of select="CodeApogee"/></td>
                                 <td><xsl:value-of select="Nom"/></td>
@@ -50,7 +52,6 @@
                                 <!-- Affichage des sous-modules et notes -->
                                 <xsl:for-each select="Modules/Module">
                                     <xsl:for-each select="SubModules/SubModule">
-                                        <!-- Pas de style conditionnel ici -->
                                         <td><xsl:value-of select="Note"/></td>
                                     </xsl:for-each>
                                     <!-- Note finale avec style conditionnel -->

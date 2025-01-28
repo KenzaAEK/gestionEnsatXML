@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
   <xsl:output method="html" indent="yes"/>
   
+  <!-- Define a key to group students by module where NoteFinale < 12 -->
   <xsl:key name="modules" match="Module[NoteFinale &lt; 12]" use="Name"/>
 
   <xsl:template match="/">
@@ -32,10 +33,13 @@
           h2 {
             color: #333;
           }
+          .low { color: red; }
+          .medium { color: orange; }
+          .high { color: green; }
         </style>
       </head>
       <body>
-        <!-- Grouper les modules et afficher un seul tableau par module -->
+        <!-- Loop through each module and display students needing a retake -->
         <xsl:for-each select="Students/Student/Modules/Module[generate-id() = generate-id(key('modules', Name)[1])]">
           <h2>Liste de rattrapage: <xsl:value-of select="Name"/></h2>
           <table>
@@ -48,12 +52,26 @@
               </tr>
             </thead>
             <tbody>
+              <!-- For each student in the module who needs a retake (NoteFinale < 12) -->
               <xsl:for-each select="key('modules', Name)">
+                <!-- Sort by Nom and Prenom -->
+                <xsl:sort select="../../Nom" order="ascending"/>
+                <xsl:sort select="../../Prenom" order="ascending"/>
                 <tr>
                   <td><xsl:value-of select="../../CodeApogee"/></td>
                   <td><xsl:value-of select="../../Nom"/></td>
                   <td><xsl:value-of select="../../Prenom"/></td>
-                  <td><xsl:value-of select="NoteFinale"/></td>
+                  <!-- Apply conditional style to Note Finale -->
+                  <td>
+                    <xsl:attribute name="class">
+                      <xsl:choose>
+                        <xsl:when test="NoteFinale &lt; 8">low</xsl:when>
+                        <xsl:when test="NoteFinale &gt;= 8 and NoteFinale &lt; 12">medium</xsl:when>
+                        <xsl:otherwise>high</xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:value-of select="NoteFinale"/>
+                  </td>
                 </tr>
               </xsl:for-each>
             </tbody>

@@ -1,79 +1,109 @@
-from lxml import etree
+import lxml.etree as ET
 
-def validate_xml_with_xsd(xml_file, xsd_file):
-    """
-    Valide un fichier XML avec un schéma XSD.
-    """
+def validate_with_dtd(xml_file, dtd_file):
     try:
-        # Charger le fichier XSD
-        with open(xsd_file, 'r') as schema_file:
-            schema_doc = etree.parse(schema_file)
-            schema = etree.XMLSchema(schema_doc)
-        
-        # Charger le fichier XML
-        xml_doc = etree.parse(xml_file)
-        
-        # Validation
+        with open(dtd_file, 'r') as dtd:
+            dtd = ET.DTD(dtd)
+        with open(xml_file, 'r') as xml:
+            xml_doc = ET.parse(xml)
+        is_valid = dtd.validate(xml_doc)
+        if is_valid:
+            print(f"{xml_file} is valid against {dtd_file}")
+        else:
+            print(f"{xml_file} is NOT valid against {dtd_file}: {dtd.error_log.filter_from_errors()}")
+    except Exception as e:
+        print(f"Error validating {xml_file} against {dtd_file}: {e}")
+
+def validate_with_xsd(xml_file, xsd_file):
+    try:
+        with open(xsd_file, 'rb') as xsd:  # Ouvrir le fichier XSD en mode binaire
+            schema_root = ET.XML(xsd.read())
+            schema = ET.XMLSchema(schema_root)
+
+        with open(xml_file, 'rb') as xml:  # Ouvrir le fichier XML en mode binaire
+            xml_doc = ET.parse(xml)
         schema.assertValid(xml_doc)
-        print(f"{xml_file} est valide selon {xsd_file}.")
-        return True
-    except etree.DocumentInvalid as e:
-        print(f"{xml_file} n'est pas valide :\n{e}")
-        return False
+        print(f"{xml_file} is valid against {xsd_file}")
+    except ET.DocumentInvalid as e:
+        print(f"{xml_file} is NOT valid against {xsd_file}: {e}")
     except Exception as e:
-        print(f"Erreur lors de la validation : {e}")
-        return False
+        print(f"Error validating {xml_file} against {xsd_file}: {e}")
 
+# Fichiers à valider
+files_to_validate = [
+    {"xml": "data_generated/students/Students_GINF2.xml", "dtd": "schemas/Students.dtd", "xsd": "schemas/Students.xsd"},
+    {"xml": "data_generated/modules/Modules_GINF2.xml", "dtd": "schemas/Modules.dtd", "xsd": "schemas/Modules.xsd"},
+    {"xml": "data_generated/notes/Notes_GINF2.xml", "dtd": "schemas/Notes.dtd", "xsd": "schemas/Notes.xsd"},
+]
 
-def validate_students(xml_file, xsd_file):
-    """
-    Valide le fichier Students XML avec un schéma XSD.
-    """
-    print("\nValidation du fichier Students...")
-    return validate_xml_with_xsd(xml_file, xsd_file)
+for file in files_to_validate:
+    print(f"Validating {file['xml']}...")
+    validate_with_dtd(file["xml"], file["dtd"])
+    validate_with_xsd(file["xml"], file["xsd"])
 
+# Nouvelle fonction de validation pour les noms
+def check_alphanumeric(value):
+    if not value.isalpha():
+        raise ValueError(f"Value '{value}' contains non-alphanumeric characters.")
 
-def validate_modules(xml_file, xsd_file):
-    """
-    Valide le fichier Modules XML avec un schéma XSD.
-    """
-    print("\nValidation du fichier Modules...")
-    return validate_xml_with_xsd(xml_file, xsd_file)
-
-
-def validate_notes(xml_file, xsd_file, threshold):
-    """
-    Valide le fichier Notes XML avec un schéma XSD, et vérifie les seuils.
-    """
-    print("\nValidation du fichier Notes...")
-    
-    # Validation avec le schéma XSD
-    is_valid_xsd = validate_xml_with_xsd(xml_file, xsd_file)
-    if not is_valid_xsd:
-        return False
-    
-    # Vérification des seuils pour les notes finales
-    print("\nVérification des seuils pour les notes finales...")
+# Exemple d'utilisation
+def validate_students_constraints(xml_file):
     try:
-        # Charger le fichier XML
-        xml_doc = etree.parse(xml_file)
-        
-        # Récupérer toutes les notes finales
-        students = xml_doc.xpath("//Student")
-        for student in students:
-            nom = student.find("Nom").text
-            prenom = student.find("Prenom").text
-            classe_type = student.find("ClasseType").text
-            modules = student.xpath(".//Module")
-            
-            for module in modules:
-                note_finale = float(module.find("NoteFinale").text)
-                if note_finale < threshold:
-                    print(f"Erreur : {nom} {prenom} ({classe_type}) a une note finale {note_finale} inférieure au seuil {threshold}.")
-                    return False
-        
-        print(f"Toutes les notes finales dans {xml_file} respectent le seuil {threshold}.")
-        return True
+        # Parse le fichier XML
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+
+        # Vérifie chaque étudiant
+        for student in root.findall(".//Student"):
+            first_name = student.find("FirstName")
+            last_name = student.find("LastName")
+
+            # Vérification si les éléments sont présents et non vides
+            if first_name is None or first_name.text is None or first_name.text.strip() == "":
+                raise ValueError(f"FirstName is missing or empty in {xml_file}")
+            if last_name is None or last_name.text is None or last_name.text.strip() == "":
+                raise ValueError(f"LastName is missing or empty in {xml_file}")
+
+            # Vérification des caractères alphanumériques
+            check_alphanumeric(first_name.text)
+            check_alphanumeric(last_name.text)
+
+        print(f"{xml_file} passed additional students constraints validation.")
+    except ValueError as e:
+        print(f"{xml_file} failed additional students constraints validation: {e}")
     except Exception as e:
-        print(f"Erreur lors de la vérification des seuils : {e}")
-        return False
+        print(f"Error during additional constraints validation of {xml_file}: {e}")
+
+def validate_notes_constraints(xml_file):
+    try:
+        # Parse le fichier XML
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+
+        # Vérifie chaque note
+        for student in root.findall(".//Student"):
+            for module in student.findall(".//Module"):
+                note_finale = module.find("NoteFinale")
+                if note_finale is None or note_finale.text is None or note_finale.text.strip() == "":
+                    raise ValueError(f"NoteFinale is missing or empty in {xml_file}")
+
+                # Vérifie si la note finale est dans la plage
+                note_value = float(note_finale.text)
+                if note_value < 0 or note_value > 20:
+                    raise ValueError(f"NoteFinale '{note_value}' is out of range (0-20) in {xml_file}")
+
+                for submodule in module.findall(".//SubModule"):
+                    note = submodule.find("Note")
+                    if note is None or note.text is None or note.text.strip() == "":
+                        raise ValueError(f"Note is missing or empty in {xml_file}")
+
+                    # Vérifie si la note est dans la plage
+                    note_value = float(note.text)
+                    if note_value < 0 or note_value > 20:
+                        raise ValueError(f"Note '{note_value}' is out of range (0-20) in {xml_file}")
+
+        print(f"{xml_file} passed additional notes constraints validation.")
+    except ValueError as e:
+        print(f"{xml_file} failed additional notes constraints validation: {e}")
+    except Exception as e:
+        print(f"Error during additional notes constraints validation of {xml_file}: {e}")

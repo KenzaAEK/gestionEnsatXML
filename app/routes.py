@@ -72,8 +72,50 @@ def transform_notes():
     Route pour transformer Notes_GINF2.xml en Notes_GINF2.html.
     """
     xml_file = "data_generated/notes/Notes_GINF2.xml"
-    xslt_file = "schemas/Notes.xslt"
+    xslt_file = "templates/Notes.xslt"
     output_file = "data_generated/notes/Notes_GINF2.html"
+
+    if transform_xml_to_html(xml_file, xslt_file, output_file):
+        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    else:
+        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+    
+@main.route('/transform/ratt', methods=['GET'])
+def transform_ratt():
+    """
+    Route pour transformer Notes_GINF2.xml en Notes_GINF2.html.
+    """
+    xml_file = "data_generated/notes/Notes_GINF2.xml"
+    xslt_file = "templates/Ratt.xslt"
+    output_file = "data_generated/notes/Ratt_GINF2.html"
+
+    if transform_xml_to_html(xml_file, xslt_file, output_file):
+        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    else:
+        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+    
+@main.route('/transform/modules', methods=['GET'])
+def transform_modules():
+    """
+    Route pour transformer Modules_GINF2.xml en Modules_GINF2.html.
+    """
+    xml_file = "data_generated/modules/Modules_GINF2.xml"
+    xslt_file = "templates/Modules.xslt"
+    output_file = "data_generated/modules/Modules_GINF2.html"
+
+    if transform_xml_to_html(xml_file, xslt_file, output_file):
+        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    else:
+        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+
+@main.route('/transform/students', methods=['GET'])
+def transform_students():
+    """
+    Route pour transformer Students_GINF2.xml en Students_GINF2.html.
+    """
+    xml_file = "data_generated/students/Students_GINF2.xml"
+    xslt_file = "templates/Students.xslt"
+    output_file = "data_generated/students/Students_GINF2.html"
 
     if transform_xml_to_html(xml_file, xslt_file, output_file):
         return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")

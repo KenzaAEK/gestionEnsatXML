@@ -8,12 +8,49 @@
         <fo:root>
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="page" page-height="29.7cm" page-width="21cm" margin="2cm">
-                    <fo:region-body />
+                    <fo:region-body margin-top="4cm"/>
+                    <fo:region-before extent="3cm"/>
                 </fo:simple-page-master>
             </fo:layout-master-set>
 
             <xsl:for-each select="Student[1]/Modules/Module">
                 <fo:page-sequence master-reference="page">
+                    <!-- Header with logos and text -->
+                    <fo:static-content flow-name="xsl-region-before">
+                        <fo:block>
+                            <fo:table table-layout="fixed" width="100%">
+                                <fo:table-column column-width="20%"/>
+                                <fo:table-column column-width="60%"/>
+                                <fo:table-column column-width="20%"/>
+                                <fo:table-body>
+                                    <fo:table-row>
+                                        <!-- Left Logo (UAE) -->
+                                        <fo:table-cell>
+                                            <fo:block text-align="center">
+                                                <fo:external-graphic src="../../images/logoUae.png" content-width="auto" content-height="2cm"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                        
+                                        <!-- Center Text -->
+                                        <fo:table-cell>
+                                            <fo:block text-align="center" font-size="12pt" font-weight="bold">
+                                                Université Abdelmalek Essaâdi<br/>
+                                                École Nationale des Sciences Appliquées<br/>
+                                                Tanger
+                                            </fo:block>
+                                        </fo:table-cell>
+
+                                        <!-- Right Logo (ENSAT) -->
+                                        <fo:table-cell>
+                                            <fo:block text-align="center">
+                                                <fo:external-graphic src="../../images/ensat.png" content-width="auto" content-height="2cm"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                    </fo:table-row>
+                                </fo:table-body>
+                            </fo:table>
+                        </fo:block>
+                    </fo:static-content>
                     <fo:flow flow-name="xsl-region-body">
                         <fo:block font-size="14pt" font-weight="bold" text-align="center" margin-bottom="10pt">
                             <xsl:text>Module : </xsl:text>
@@ -107,24 +144,24 @@
                                 </xsl:for-each>
                             </fo:table-body>
                         </fo:table>
-
-                        <fo:block break-before="page" />
                     </fo:flow>
                 </fo:page-sequence>
             </xsl:for-each>
         </fo:root>
     </xsl:template>
 
-    <xsl:template name="loopEmptyCells">
-        <xsl:param name="count"/>
-        <xsl:if test="$count > 0">
-            <fo:table-cell border="0.5pt solid black">
-                <fo:block font-size="7pt" text-align="center">-</fo:block>
-            </fo:table-cell>
-            <xsl:call-template name="loopEmptyCells">
-                <xsl:with-param name="count" select="$count - 1"/>
-            </xsl:call-template>
-        </xsl:if>
-    </xsl:template>
+  <xsl:template name="loopEmptyCells">
+    <xsl:param name="count"/>
+    <!-- Assurez-vous que $count est strictement positif -->
+    <xsl:if test="$count > 0">
+        <fo:table-cell border="0.5pt solid black">
+            <fo:block font-size="7pt" text-align="center">-</fo:block>
+        </fo:table-cell>
+        <!-- Réduisez $count et appelez la fonction récursive -->
+        <xsl:call-template name="loopEmptyCells">
+            <xsl:with-param name="count" select="$count - 1" />
+        </xsl:call-template>
+    </xsl:if>
+</xsl:template>
 
 </xsl:stylesheet>

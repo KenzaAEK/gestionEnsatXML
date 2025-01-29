@@ -1,74 +1,1041 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:e="http://GINF2Emploi.org"
-    version="2.0">
-
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="fo"
+    xmlns:date="http://exslt.org/dates-and-times">
     <xsl:template match="/">
-        <html>
-            <head>
-                <title>Emploi du Temps ENSA Tanger GINF2</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        background-color: #f8f8f8;
-                        margin: 20px;
-                    }
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        background-color: white;
-                    }
-                    th, td {
-                        border: 1px solid black;
-                        padding: 10px;
-                        text-align: center;
-                        min-height: 50px;
-                        font-size: 14px;
-                    }
-                    th {
-                        background-color: #d3d3d3;
-                        font-size: 16px;
-                        padding: 12px;
-                    }
-                    .CM { background-color: #F9FCA9; color: black; font-weight: bold; border-radius: 10px; padding: 5px; }
-                    .TP { background-color: #42E427; color: black; font-weight: bold; border-radius: 10px; padding: 5px; }
-                    .TD { background-color: #C17FE9; color: white; font-weight: bold; border-radius: 10px; padding: 5px; }
-                </style>
-            </head>
-            <body>
-                <h2 style="text-align: center; color: #02306E; font-size: 24px;"><xsl:value-of select="e:emploi/e:TopBar/e:Title"/></h2>
-                <h3 style="text-align: center; font-size: 18px;">Semaine: <xsl:value-of select="e:emploi/e:TopBar/e:SemNum"/> - Année: <xsl:value-of select="e:emploi/e:TopBar/e:AnneeNum"/></h3>
-                <table>
-                    <tr>
-                        <th>Heure</th>
-                        <xsl:for-each select="e:emploi/e:Days/e:day">
-                            <th><xsl:value-of select="@name"/></th>
-                        </xsl:for-each>
-                    </tr>
-                    
-                    <xsl:for-each select="e:emploi/e:times/e:time">
-                        <tr>
-                            <td><xsl:value-of select="@t"/></td>
-                            <xsl:for-each select="e:emploi/e:Days/e:day">
-                                <td>
-                                    <xsl:variable name="currentDay" select="@name"/>
-                                    <xsl:variable name="currentTime" select="current()/@t"/>
+        <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+            <!-- Modèle de pages -->
+            <fo:layout-master-set>
+                <fo:simple-page-master master-name="A4"
+                    page-width="297mm" page-height="250mm"
+                    margin="1cm">
+                    <!-- Région principale -->
+                    <fo:region-body  margin="0.10cm" />
+
+                    <!-- Pied de page aka footer -->
+                    <fo:region-after  extent="1cm"/>
+                </fo:simple-page-master>
+            </fo:layout-master-set>
+            <!-- Contenus -->
+            <fo:page-sequence master-reference="A4">
+                <!-- Contenu du pied de page : numéro de la page -->
+                <fo:static-content flow-name="xsl-region-after">
+                    <fo:block text-align="center">
+                        
+                    </fo:block>
+                </fo:static-content>
+                <!-- Contenu de la partie centrale -->
+                <fo:flow flow-name="xsl-region-body"  >
+                    <fo:block text-align="center"  margin-bottom="10mm" font-weight="bold">
+                        Emploi du temps de la semaine numéro 49 de l'année 2025
+                    </fo:block>
+                    <fo:block>
+                        <fo:table  width="110mm" border-style="ridge" border-width="0.5pt">                               
+                            <fo:table-body>                                                     
+                                <fo:table-row background-color="lightgray">                                                   
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center"  > 
+                                        <fo:block> </fo:block>                         
+                                    </fo:table-cell>                         
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" > 
+                                        <fo:block>Lundi</fo:block>
+                                        <fo:block>05/12</fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
+                                        <fo:block>Mardi</fo:block>
+                                        <fo:block>06/12</fo:block>                  
+                                    </fo:table-cell>   
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" > 
+                                        <fo:block>Mercredi</fo:block>
+                                        <fo:block>07/12</fo:block>                     
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
+                                        <fo:block>Jeudi</fo:block>
+                                        <fo:block>08/12</fo:block>                        
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
+                                        <fo:block>Vendredi</fo:block>
+                                        <fo:block>09/12</fo:block>                      
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
+                                        <fo:block>Samedi</fo:block>
+                                        <fo:block>10/12</fo:block>                         
+                                    </fo:table-cell> 
+                                </fo:table-row>     
+                                
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>8:00</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block> </fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>8:30</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>9:00</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 9:00 - 10:30
+                                        </fo:block>
+                                    </fo:table-cell>
                                     
-                                    <xsl:for-each select="e:time[@t=$currentTime]/e:matiere">
-                                        <xsl:if test="ancestor::e:day/@name = $currentDay">
-                                            <div class="{e:type}" style="padding: 10px; margin: 5px; border-radius: 8px; font-size: 14px;">
-                                                <strong><xsl:value-of select="e:nom"/></strong><br/>
-                                                <em><xsl:value-of select="e:nomProf"/></em><br/>
-                                                <span>Salle: <xsl:value-of select="e:salle"/></span>
-                                            </div>
-                                        </xsl:if>
-                                    </xsl:for-each>
-                                </td>
-                            </xsl:for-each>
-                        </tr>
-                    </xsl:for-each>
-                </table>
-            </body>
-        </html>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 9:00 - 10:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 9:00 - 10:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 9:00 - 10:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 9:00 - 10:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[1]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[1]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/lundi/séance[1]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/mardi/séance[1]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/mardi/séance[1]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/mardi/séance[1]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/mercredi/séance[1]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/mercredi/séance[1]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/mercredi/séance[1]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[1]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[1]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/jeudi/séance[1]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" >
+                                        <fo:block font-weight="bold">               
+                                            <xsl:variable name="moduleValue" select="//semaine[1]/vendredi/séance[1]/module"/>
+                                            <xsl:value-of select="substring($moduleValue, 1, 30)"/>
+                                            
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/vendredi/séance[1]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/vendredi/séance[1]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>9:30</fo:block>                         
+                                    </fo:table-cell> 
+
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>10:00</fo:block>                         
+                                    </fo:table-cell> 
+
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>10:30</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>11:00</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 11:00 - 12:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="yellow">
+                                        <fo:block>
+                                            CM - 11:00 - 12:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="yellow">
+                                        <fo:block>
+                                            CM - 11:00 - 12:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 11:00 - 12:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 11:00 - 12:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[2]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[2]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/lundi/séance[2]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/mardi/séance[2]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/ mardi/séance[2]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/mardi/séance[2]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/mercredi/séance[2]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/ mercredi/séance[2]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/mercredi/séance[2]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[2]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[2]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/jeudi/séance[2]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" >
+                                        <fo:block font-weight="bold">               
+                                            <xsl:variable name="moduleValue" select="//semaine[1]/vendredi/séance[2]/module"/>
+                                            <xsl:value-of select="substring($moduleValue, 1, 30)"/>
+                                            
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/vendredi/séance[2]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/vendredi/séance[2]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>11:30</fo:block>                         
+                                    </fo:table-cell> 
+
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>12:00</fo:block>                         
+                                    </fo:table-cell> 
+
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>12:30</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>13:00</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm" background-color="lightgray">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" > 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm" background-color="lightgray">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" > 
+                                        <fo:block>13:30</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 13:30 - 15:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#00FF7F">
+                                        <fo:block>
+                                            CM - 13:30 - 15:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 13:30 - 15:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 13:30 - 15:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 13:30 - 15:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm" background-color="lightgray">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" > 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[3]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[3]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/lundi/séance[3]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/mardi/séance[3]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/mardi/séance[3]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/mardi/séance[3]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/mercredi/séance[3]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/mercredi/séance[3]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/mercredi/séance[3]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[3]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[3]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/jeudi/séance[3]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/vendredi/séance[3]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/vendredi/séance[3]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/vendredi/séance[3]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm" background-color="lightgray">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" > 
+                                        <fo:block>14:00</fo:block>                         
+                                    </fo:table-cell> 
+
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm" background-color="lightgray">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" > 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>14:30</fo:block>                         
+                                    </fo:table-cell> 
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>15:00</fo:block>                         
+                                    </fo:table-cell> 
+                                    
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>15:30</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="yellow">
+                                        <fo:block>
+                                            CM - 15:30 - 17:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#00FF7F">
+                                        <fo:block>
+                                            CM - 15:30 - 17:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                        <fo:block>
+                                            CM - 15:30 - 17:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[4]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/lundi/séance[4]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/lundi/séance[4]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/mercredi/séance[4]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/mercredi/séance[4]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/mercredi/séance[4]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[4]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/jeudi/séance[4]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/jeudi/séance[4]/salle"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>16:00</fo:block>                         
+                                    </fo:table-cell> 
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>16:30</fo:block>                         
+                                    </fo:table-cell> 
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>17:00</fo:block>                         
+                                    </fo:table-cell> 
+                                    
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>17:30</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block></fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <fo:table-row height="4mm">
+                                    <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
+                                        <fo:block>18:00</fo:block>                         
+                                    </fo:table-cell> 
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
+                                        <fo:block> </fo:block>
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                
+                                
+                                
+                            </fo:table-body>
+                        </fo:table>
+                    </fo:block>
+                </fo:flow>
+            </fo:page-sequence>
+        </fo:root>
     </xsl:template>
 </xsl:stylesheet>

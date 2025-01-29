@@ -105,7 +105,7 @@ def transform_notes():
     Route pour transformer Notes_GINF2.xml en Notes_GINF2.html.
     """
     xml_file = "data_generated/notes/Notes_GINF2.xml"
-    xslt_file = "templates/Notes.xslt"
+    xslt_file = "templates/html_templates/Notes.xslt"
     output_file = "data_generated/notes/Notes_GINF2.html"
 
     if transform_xml_to_html(xml_file, xslt_file, output_file):
@@ -119,7 +119,7 @@ def transform_ratt():
     Route pour transformer Notes_GINF2.xml en Notes_GINF2.html.
     """
     xml_file = "data_generated/notes/Notes_GINF2.xml"
-    xslt_file = "templates/Ratt.xslt"
+    xslt_file = "templates/html_templates/Ratt.xslt"
     output_file = "data_generated/notes/Ratt_GINF2.html"
 
     if transform_xml_to_html(xml_file, xslt_file, output_file):
@@ -133,7 +133,7 @@ def transform_modules():
     Route pour transformer Modules_GINF2.xml en Modules_GINF2.html.
     """
     xml_file = "data_generated/modules/Modules_GINF2.xml"
-    xslt_file = "templates/Modules.xslt"
+    xslt_file = "templates/html_templates/Modules.xslt"
     output_file = "data_generated/modules/Modules_GINF2.html"
 
     if transform_xml_to_html(xml_file, xslt_file, output_file):
@@ -147,7 +147,7 @@ def transform_students():
     Route pour transformer Students_GINF2.xml en Students_GINF2.html.
     """
     xml_file = "data_generated/students/Students_GINF2.xml"
-    xslt_file = "templates/Students.xslt"
+    xslt_file = "templates/html_templates/Students.xslt"
     output_file = "data_generated/students/Students_GINF2.html"
 
     if transform_xml_to_html(xml_file, xslt_file, output_file):

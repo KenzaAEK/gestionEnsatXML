@@ -155,7 +155,7 @@ def transform_students():
     else:
         return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
     
-@main.route('/transform/pdf/<file_type>', methods=['GET'])
+@main.route('/pdf/<file_type>', methods=['GET'])
 def transform_to_pdf(file_type):
     """
     Route pour générer un PDF (students, modules, notes) et permettre son téléchargement.
@@ -186,6 +186,11 @@ def transform_to_pdf(file_type):
                 "xml": os.path.abspath("data_generated/edt/Edt_GINF2.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/Edt.fo"),
                 "pdf": os.path.abspath("data_generated/edt/Edt_GINF2.pdf")
+            },
+            "releve": {
+                "xml": os.path.abspath("data_generated/notes/Notes_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/Releve.fo"),
+                "pdf": os.path.abspath("data_generated/notes/releve.pdf")
             }
             
         }

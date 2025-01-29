@@ -211,6 +211,11 @@ def transform_to_pdf(file_type):
                 "xml": os.path.abspath("data_generated/student_card/student_card.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/StudentCard.fo"),
                 "pdf": os.path.abspath("data_generated/student_card/StudentCard.pdf")
+            },
+            "emploi": {  # Emploi du temps (anciennement "student_card" à tort)
+                "xml": os.path.abspath("data_generated/Emploi/emploi_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/Emplois.fo"),
+                "pdf": os.path.abspath("data_generated/Emploi/emploi_GINF2.pdf")
             }
             
         }

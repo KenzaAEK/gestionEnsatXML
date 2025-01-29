@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="fo"
+    xmlns:date="http://exslt.org/dates-and-times">
+
+    <xsl:template match="/">
+        <fo:root font-family="Arial, sans-serif">
+            <fo:layout-master-set>
+                <fo:simple-page-master master-name="A4"
+                    page-width="210mm" page-height="297mm"
+                    margin="2cm">
+                    <fo:region-body margin="1cm"/>
+                    <fo:region-after extent="1cm"/>
+                </fo:simple-page-master>
+            </fo:layout-master-set>
+
+            <fo:page-sequence master-reference="A4">
+                <fo:static-content flow-name="xsl-region-after">
+                    <fo:block text-align="center" font-size="8pt">
+                        Page <fo:page-number/>
+                    </fo:block>
+                </fo:static-content>
+
+                <fo:flow flow-name="xsl-region-body">
+                    <fo:block text-align="center" font-size="14pt" font-weight="bold" margin-bottom="10mm">
+                        Emploi du temps - Semaine <xsl:value-of select="/Emploi/semaine/@num"/> | Année <xsl:value-of select="/Emploi/semaine/@annee"/>
+                    </fo:block>
+
+                    <fo:table width="170mm" table-layout="fixed" border-style="solid" border-width="1pt">
+                        <fo:table-body>
+                            <fo:table-row background-color="lightgray">
+                                <fo:table-cell width="22mm" text-align="center">
+                                    <fo:block font-weight="bold">Heure</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell width="28mm" text-align="center">
+                                    <fo:block font-weight="bold">Lundi</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell width="28mm" text-align="center">
+                                    <fo:block font-weight="bold">Mardi</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell width="28mm" text-align="center">
+                                    <fo:block font-weight="bold">Mercredi</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell width="28mm" text-align="center">
+                                    <fo:block font-weight="bold">Jeudi</fo:block>
+                                </fo:table-cell>
+                                <fo:table-cell width="28mm" text-align="center">
+                                    <fo:block font-weight="bold">Vendredi</fo:block>
+                                </fo:table-cell>
+                            </fo:table-row>
+
+                            <xsl:for-each select="/Emploi/semaine/lundi/seance">
+                                <fo:table-row height="10mm" keep-together="always">
+                                    <fo:table-cell text-align="center" background-color="lightgray">
+                                        <fo:block font-size="8pt">
+                                            <xsl:value-of select="@debut"/> - <xsl:value-of select="@fin"/>
+                                        </fo:block>
+                                    </fo:table-cell>
+
+                                    <xsl:for-each select="../seance">
+                                        <fo:table-cell text-align="center" border-style="solid" border-width="1pt">
+                                            <fo:block font-size="8pt" font-weight="bold" wrap-option="wrap" overflow="hidden">
+                                                <xsl:value-of select="substring(module, 1, 20)"/>
+                                            </fo:block>
+                                            <fo:block font-size="7pt">
+                                                Prof: <xsl:value-of select="Professeur"/>
+                                            </fo:block>
+                                            <fo:block font-size="7pt">
+                                                Salle: <xsl:value-of select="salle"/>
+                                            </fo:block>
+                                        </fo:table-cell>
+                                    </xsl:for-each>
+                                </fo:table-row>
+                            </xsl:for-each>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:flow>
+            </fo:page-sequence>
+        </fo:root>
+    </xsl:template>
+</xsl:stylesheet>

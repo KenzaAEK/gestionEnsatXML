@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<emploi xmlns="http://GINF2Emploi.org">
+    <TopBar>
+        <Title>EMPLOI DU TEMPS ENSA TANGER GINF2</Title>
+        <SemNum>51</SemNum>
+        <AnneeNum>2022</AnneeNum>
+    </TopBar>
+    <Days>
+        <day name="Lundi"/>
+        <day name="Mardi"/>
+        <day name="Mercredi"/>
+        <day name="Jeudi"/>
+        <day name="Vendredi"/>
+        <day name="Samedi"/>
+    </Days>
+    <times>
+        <time t="08:00"/>
+        <time t="08:30"/>
+        <time t="09:00"/>
+        <time t="09:30"/>
+        <time t="10:00"/>
+        <time t="10:30"/>
+        <time t="11:00"/>
+        <time t="11:30"/>
+        <time t="12:00"/>
+        <time t="12:30"/>
+        <time t="13:00"/>
+        <time t="13:30"/>
+        <time t="14:00"/>
+        <time t="14:30"/>
+        <time t="15:00"/>
+        <time t="15:30"/>
+        <time t="16:00"/>
+        <time t="16:30"/>
+        <time t="17:00"/>
+        <time t="17:30"/>
+        <time t="18:00"/>
+        <time t="18:30"/>
+    </times>
+    <Days>
+        <day name="Lundi">
+            <time t="09:00">
+                <matiere type="CM">
+                    <nom>CRYPTOGRAPHIE</nom>
+                    <nomProf>LAZAAR</nomProf>
+                    <salle>B20</salle>
+                </matiere>
+            </time>
+            <time t="13:30">
+                <matiere type="CM">
+                    <nom>BASES DE DONNEES N</nom>
+                    <nomProf>BADIR</nomProf>
+                    <salle>B20</salle>
+                </matiere>
+            </time>
+            <time t="15:30">
+                <matiere type="TP">
+                    <nom>BASES DE DONNEES N</nom>
+                    <nomProf>BADIR</nomProf>
+                    <salle>B20</salle>
+                </matiere>
+            </time>
+        </day>
+
+        <day name="Mardi">
+            <time t="09:00">
+                <matiere type="TP">
+                    <nom>PROGRAMMATION DECL</nom>
+                    <nomProf>CHAFIK</nomProf>
+                    <salle>B20</salle>
+                </matiere>
+            </time>
+        </day>
+
+        <day name="Mercredi">
+            <time t="09:00">
+                <matiere type="TP">
+                    <nom>TRAITEMENT D IMAGE</nom>
+                    <nomProf>LACHKAR</nomProf>
+                    <salle>B20</salle>
+                </matiere>
+            </time>
+        </day>
+
+        <day name="Jeudi">
+            <time t="11:00">
+                <matiere type="CM">
+                    <nom>DOT NET C SHARP</nom>
+                    <nomProf>GHAILANI</nomProf>
+                    <salle>B20</salle>
+                </matiere>
+            </time>
+        </day>
+
+        <day name="Vendredi">
+            <time t="09:00">
+                <matiere type="CM">
+                    <nom>GESTION DES DONNEES</nom>
+                    <nomProf>BADIR</nomProf>
+                    <salle>B20</salle>
+                </matiere>
+            </time>
+            <time t="14:30">
+                <matiere type="CM">
+                    <nom>COMPTABILITE 2</nom>
+                    <nomProf>NAITBOUBKER</nomProf>
+                    <salle>B2</salle>
+                </matiere>
+            </time>
+            <time t="16:30">
+                <matiere type="CM">
+                    <nom>COMPTABILITE 2</nom>
+                    <nomProf>NAITBOUBKER</nomProf>
+                    <salle>B2</salle>
+                </matiere>
+            </time>
+        </day>
+
+    </Days>
+</emploi>

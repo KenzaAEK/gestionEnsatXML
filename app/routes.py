@@ -107,6 +107,36 @@ def transform_modules():
         return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
     else:
         return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+    
+
+@main.route('/transform/tps', methods=['GET'])
+def transform_tps():
+    """
+    Route pour transformer TP_GINF2.xml en TP_GINF2.html.
+    """
+    xml_file = "data_generated/tp/TP_GINF2.xml"
+    xslt_file = "templates/GroupeTP.xslt"
+    output_file = "data_generated/tp/TP_GINF2.html"
+
+    if transform_xml_to_html(xml_file, xslt_file, output_file):
+        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    else:
+        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+
+@main.route('/transform/Emploi', methods=['GET'])
+def transform_emploi():
+    """
+    Route pour transformer emploi_GINF2.xml en emploi_GINF2.html.
+    """
+    xml_file = "data_generated/Emploi/emploi_GINF2.xml"
+    xslt_file = "templates/emploi_GINF2.xslt"
+    output_file = "data_generated/Emploi/emploi_GINF2.html"
+
+    if transform_xml_to_html(xml_file, xslt_file, output_file):
+        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    else:
+        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+
 
 @main.route('/transform/students', methods=['GET'])
 def transform_students():

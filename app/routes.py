@@ -177,7 +177,13 @@ def transform_to_pdf(file_type):
                 "xml": os.path.abspath("data_generated/notes/Notes_GINF2.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/Notes.fo"),
                 "pdf": os.path.abspath("data_generated/notes/Notes_GINF2.pdf")
+            },
+             "student_card": {
+                "xml": os.path.abspath("data_generated/student_card/student_card.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/StudentCard.fo"),
+                "pdf": os.path.abspath("data_generated/student_card/StudentCard.pdf")
             }
+            
         }
 
         if file_type not in file_mapping:

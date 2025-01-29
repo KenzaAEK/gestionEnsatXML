@@ -2,8 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
   <xsl:output method="html" indent="yes"/>
   
-  <!-- Titre principal pour le tableau -->
-  <xsl:template match="/">
+  <xsl:template match="/TPGroups">
     <html>
       <head>
         <title>Groupes TP et Étudiants</title>
@@ -15,27 +14,29 @@
           }
           th, td {
             border: 1px solid black;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
           }
           th {
             background-color: #f2f2f2;
             font-weight: bold;
-          }
-          tr:nth-child(even) {
-            background-color: #f9f9f9;
-          }
-          tr:nth-child(odd) {
-            background-color: #ffffff;
+            text-align: center;
           }
           .group-header {
-            background-color: #e0e0e0;
+            background-color: #d3d3d3;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
           }
-          .student-info {
-            width: 50%;
+          .student-list {
+            padding-left: 10px;
           }
-          .student-details {
-            width: 50%;
+          .student-list div {
+            border-bottom: 1px solid #ccc;
+            padding: 5px 0;
+          }
+          .student-list div:last-child {
+            border-bottom: none;
           }
         </style>
       </head>
@@ -45,32 +46,27 @@
           <thead>
             <tr>
               <th>Groupe TP</th>
-              <th>Informations des étudiants</th>
+              <th>Les étudiants</th>
             </tr>
           </thead>
           <tbody>
             <!-- Boucle à travers chaque groupe -->
-            <xsl:for-each select="TPGroups/Group">
-              <tr class="group-header">
-                <!-- Afficher l'ID du groupe -->
-                <td colspan="2"><strong>Groupe TP : <xsl:value-of select="@id"/></strong></td>
+            <xsl:for-each select="Group">
+              <tr>
+                <!-- Colonne de gauche avec le nom du groupe -->
+                <td class="group-header" rowspan="{count(Student)}">
+                  GROUPE <xsl:value-of select="@id"/>
+                </td>
+                <!-- Première ligne avec le premier étudiant -->
+                <td class="student-list">
+                  <div><xsl:value-of select="Student[1]/Nom"/> <xsl:value-of select="Student[1]/Prenom"/></div>
+                </td>
               </tr>
-              <!-- Boucle à travers chaque étudiant dans le groupe -->
-              <xsl:for-each select="Student">
+              <!-- Autres étudiants du groupe (ajoutés en nouvelles lignes) -->
+              <xsl:for-each select="Student[position() > 1]">
                 <tr>
-                  <!-- Première colonne : Nom et Prénom -->
-                  <td class="student-info">
-                    <xsl:value-of select="Nom"/> <xsl:value-of select="Prenom"/>
-                  </td>
-                  <!-- Deuxième colonne : Autres informations -->
-                  <td class="student-details">
-                    <ul>
-                      <li>Code Apogée: <xsl:value-of select="CodeApogee"/></li>
-                      <li>CIN: <xsl:value-of select="CIN"/></li>
-                      <li>CNE: <xsl:value-of select="CNE"/></li>
-                      <li>Lieu de naissance: <xsl:value-of select="LieuNaissance"/></li>
-                      <li>Date de naissance: <xsl:value-of select="DateNaissance"/></li>
-                    </ul>
+                  <td class="student-list">
+                    <div><xsl:value-of select="Nom"/> <xsl:value-of select="Prenom"/></div>
                   </td>
                 </tr>
               </xsl:for-each>

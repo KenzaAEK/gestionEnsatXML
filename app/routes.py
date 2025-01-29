@@ -156,7 +156,6 @@ def transform_students():
         return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
     
 @main.route('/transform/pdf/<file_type>', methods=['GET'])
-@main.route('/transform/pdf/<file_type>', methods=['GET'])
 def transform_to_pdf(file_type):
     """
     Route pour générer un PDF (students, modules, notes) et permettre son téléchargement.

@@ -181,6 +181,11 @@ def transform_to_pdf(file_type):
                 "xml": os.path.abspath("data_generated/student_card/student_card.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/StudentCard.fo"),
                 "pdf": os.path.abspath("data_generated/student_card/StudentCard.pdf")
+            },
+            "edt": {
+                "xml": os.path.abspath("data_generated/edt/Edt_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/Edt.fo"),
+                "pdf": os.path.abspath("data_generated/edt/Edt_GINF2.pdf")
             }
             
         }

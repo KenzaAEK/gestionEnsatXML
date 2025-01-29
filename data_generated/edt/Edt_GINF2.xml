@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Emlpoi xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="emplois.xsd">
+
+<semaine num="49" annee="2023">
+    <lundi date="05/12">
+        <séance type="TD" debut="09h00" fin="10h30">
+            <module>Modélisation orienté objet UML</module>
+            <Professeur>EL ALAMI</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="TD" debut="11h00" fin="12h30">
+            <module>Modélisation orienté objet UML</module>
+            <Professeur>EL ALAMI</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="CM" debut="13h30" fin="15h00">
+            <module>Interaction homme-machine</module>
+            <Professeur>EL ALAMI</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="TD" debut="15h30" fin="17h00">
+            <module>Interaction homme-machine</module>
+            <Professeur>Sbaytri</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+    </lundi>
+    <mardi date="06/12">
+        <séance type="CM" debut="09h00" fin="10h30">
+            <module>GESTION DES DONNEES DISTRIBUEES</module>
+            <Professeur>FISSOUNE</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="TP" debut="11h00" fin="12h30">
+            <module>GESTION DES DONNEES DISTRIBUEES</module>
+            <Professeur>FISSOUNE</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="TP" debut="13h30" fin="15h00">
+            <module>Programmation systèmes</module>
+            <Professeur>AMECHNOUE</Professeur>
+            <salle>Salle B22</salle>
+        </séance>
+    </mardi>
+    <mercredi date="07/12">
+        <séance type="CM" debut="09h00" fin="10h30">
+            <module>Programmation orienté objet : Java</module>
+            <Professeur>El HADDAD</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="TP" debut="11h00" fin="12h30">
+            <module>Programmation orienté objet : Java</module>
+            <Professeur>El HADDAD</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="CM" debut="13h30" fin="15h00">
+            <module>Programmation systèmes</module>
+            <Professeur>AMECHNOUE</Professeur>
+            <salle>Salle B22</salle>
+        </séance>
+        <séance type="TP" debut="13h30" fin="15h00">
+            <module>Programmation systèmes</module>
+            <Professeur>AMECHNOUE</Professeur>
+            <salle>Salle B22</salle>
+        </séance>
+    </mercredi>
+    <jeudi date="08/12">
+        <séance type="CM" debut="09h00" fin="10h30">
+            <module>Cycle de vie de logiciel et methodes agiles</module>
+            <Professeur>BADIR</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="CM" debut="11h00" fin="12h30">
+            <module>Cycle de vie de logiciel et methodes agiles</module>
+            <Professeur>BADIR</Professeur>
+            <salle>Salle B19</salle>
+        </séance>
+        <séance type="CM" debut="13h30" fin="15h00">
+            <module>TECHNIQUE DE COMMUNICATION</module>
+            <Professeur>ZAAMOUMI</Professeur>
+            <salle>Salle C1</salle>
+        </séance>
+        <séance type="CM" debut="15h30" fin="17h00">
+            <module>TECHNIQUE DE COMMUNICATION</module>
+            <Professeur>ZAAMOUMI</Professeur>
+            <salle>Salle C1</salle>
+        </séance>
+    </jeudi>
+    <vendredi date="09/12">
+        <séance type="CM" debut="09h00" fin="10h30">
+            <module>ASSURANCE CONTROLE QUALITE (ISO 9001)</module>
+            <Professeur>CHICHI</Professeur>
+            <salle>Salle C2</salle>
+        </séance>
+        <séance type="CM" debut="11h00" fin="12h30">
+            <module>ASSURANCE CONTROLE QUALITE (ISO 9001)</module>
+            <Professeur>CHICHI</Professeur>
+            <salle>Salle C2</salle>
+        </séance>
+        <séance type="CM" debut="14h30" fin="16h00">
+            <module>Espagnol 2</module>
+            <Professeur>LAAMARTI</Professeur>
+            <salle>Salle B22</salle>
+        </séance>
+    </vendredi>
+    <samedi date="10/12">
+    </samedi>
+</semaine>
+</Emlpoi>

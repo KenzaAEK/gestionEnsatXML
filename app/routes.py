@@ -1,6 +1,8 @@
-from flask import Blueprint, Response, request
+from flask import Blueprint, Response, request, send_file
 from app.controllers.convert_excel_to_xml import convert_modules_to_xml, convert_students_to_xml, convert_notes_to_xml
 from app.controllers.transform_xml_to_html import transform_xml_to_html
+from app.controllers.transform_xml_to_pdf import transform_xml_to_pdf
+import os
 
 main = Blueprint('main', __name__)
 
@@ -121,3 +123,58 @@ def transform_students():
         return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
     else:
         return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+    
+@main.route('/transform/pdf/<file_type>', methods=['GET'])
+@main.route('/transform/pdf/<file_type>', methods=['GET'])
+def transform_to_pdf(file_type):
+    """
+    Route pour générer un PDF (students, modules, notes) et permettre son téléchargement.
+    """
+    try:
+        file_mapping = {
+            "students": {
+                "xml": os.path.abspath("data_generated/students/Students_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/Students.fo"),
+                "pdf": os.path.abspath("data_generated/students/Students_GINF2.pdf")
+            },
+            "modules": {
+                "xml": os.path.abspath("data_generated/modules/Modules_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/Modules.fo"),
+                "pdf": os.path.abspath("data_generated/modules/Modules_GINF2.pdf")
+            },
+            "notes": {
+                "xml": os.path.abspath("data_generated/notes/Notes_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/Notes.fo"),
+                "pdf": os.path.abspath("data_generated/notes/Notes_GINF2.pdf")
+            }
+        }
+
+        if file_type not in file_mapping:
+            return Response(f"Type '{file_type}' non valide.", status=400)
+
+        xml_file = file_mapping[file_type]["xml"]
+        xslt_file = file_mapping[file_type]["xslt"]
+        output_pdf = file_mapping[file_type]["pdf"]
+
+        # Vérifications des fichiers
+        if not os.path.exists(xml_file):
+            return Response(f"Fichier XML '{xml_file}' introuvable.", status=400)
+        if not os.path.exists(xslt_file):
+            return Response(f"Fichier XSLT '{xslt_file}' introuvable.", status=400)
+
+        print(f"🛠️ Vérification PDF : {output_pdf}")
+
+        # Génération du PDF
+        transform_xml_to_pdf(xml_file, xslt_file, output_pdf)
+
+        # Vérification finale avant envoi
+        if os.path.exists(output_pdf):
+            print(f"✅ PDF prêt à être téléchargé : {output_pdf}")
+            return send_file(output_pdf, as_attachment=True, mimetype="application/pdf")
+        else:
+            print(f"❌ Le fichier PDF n'existe pas après la génération !")
+            return Response("Erreur lors de la génération du PDF.", status=500)
+
+    except Exception as e:
+        print(f"❌ Erreur interne : {str(e)}")
+        return Response(f"Erreur interne : {str(e)}", status=500)

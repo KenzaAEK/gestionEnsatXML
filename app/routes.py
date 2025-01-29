@@ -1,7 +1,9 @@
-from flask import Blueprint, Response, request, send_file
+from flask import Blueprint, Response, request, send_file, jsonify
 from app.controllers.convert_excel_to_xml import convert_modules_to_xml, convert_students_to_xml, convert_notes_to_xml
+from app.controllers.validate_xml import validate_with_dtd, validate_with_xsd, validate_students_constraints, validate_notes_constraints
 from app.controllers.transform_xml_to_html import transform_xml_to_html
 from app.controllers.transform_xml_to_pdf import transform_xml_to_pdf
+
 import os
 
 main = Blueprint('main', __name__)
@@ -67,6 +69,35 @@ def convert_specific_notes():
         mimetype='text/xml',
         headers={'Content-Disposition': 'attachment;filename=Notes_GINF2.xml'}
     )
+
+@main.route('/validate', methods=['GET'])
+def validate_files():
+    results = []  # Store validation results
+
+    files_to_validate = [
+        {"xml": "data_generated/students/Students_GINF2.xml", "dtd": "schemas/Students.dtd", "xsd": "schemas/Students.xsd"},
+        {"xml": "data_generated/modules/Modules_GINF2.xml", "dtd": "schemas/Modules.dtd", "xsd": "schemas/Modules.xsd"},
+        {"xml": "data_generated/notes/Notes_GINF2.xml", "dtd": "schemas/Notes.dtd", "xsd": "schemas/Notes.xsd"},
+    ]
+
+    for file in files_to_validate:
+        file_result = {"file": file["xml"], "status": "Valid"}
+        try:
+            print(f"Validating {file['xml']}...")
+
+            validate_with_dtd(file["xml"], file["dtd"])
+            validate_with_xsd(file["xml"], file["xsd"])
+            validate_students_constraints(file["xml"])
+            validate_notes_constraints(file["xml"])
+
+        except Exception as e:
+            file_result["status"] = "Invalid"
+            file_result["error"] = str(e)
+
+        results.append(file_result)
+
+    return jsonify(results), 200  
+
 
 @main.route('/transform/notes', methods=['GET'])
 def transform_notes():

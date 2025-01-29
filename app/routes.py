@@ -226,7 +226,13 @@ def transform_to_pdf(file_type):
                 "xml": os.path.abspath("data_generated/tp/TP_GINF2.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/GroupeTP.fo"),
                 "pdf": os.path.abspath("data_generated/tp/TP_GINF2.pdf")
+            },
+             "ratt": {
+                "xml": os.path.abspath("data_generated/notes/Notes_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/Ratt.fo"),
+                "pdf": os.path.abspath("data_generated/notes/Ratt_GINF2.pdf")
             }
+           
             
         }
 

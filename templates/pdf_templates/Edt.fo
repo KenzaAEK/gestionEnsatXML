@@ -8,7 +8,7 @@
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="A4"
                     page-width="297mm" page-height="250mm"
-                    margin="1cm">
+                    margin="0.5cm">
                     <!-- Région principale -->
                     <fo:region-body  margin="0.10cm" />
 
@@ -26,11 +26,41 @@
                 </fo:static-content>
                 <!-- Contenu de la partie centrale -->
                 <fo:flow flow-name="xsl-region-body"  >
-                    <fo:block text-align="center"  margin-bottom="10mm" font-weight="bold">
+  <fo:block>
+    <fo:table table-layout="fixed" width="100%">
+        <!-- Define columns for left logo, center text, and right logo -->
+        <fo:table-column column-width="20%"/>
+        <fo:table-column column-width="60%"/>
+        <fo:table-column column-width="20%"/>
+        <fo:table-body>
+            <fo:table-row>
+                <!-- Left Logo -->
+                <fo:table-cell>
+                    <fo:block text-align="center">
+                        <fo:external-graphic src="../../images/ensat.png" content-width="auto" content-height="2cm"/>
+                    </fo:block>
+                </fo:table-cell>
+
+                <!-- Centered Text -->
+                <fo:table-cell>
+                    <fo:block text-align="center" font-weight="bold" font-size="16pt"  margin-top="10mm" >
                         Emploi du temps de la semaine numéro 49 de l'année 2023
                     </fo:block>
+                </fo:table-cell>
+
+                <!-- Right Logo -->
+                <fo:table-cell>
+                    <fo:block text-align="center">
+                        <fo:external-graphic src="../../images/logoUae.png" content-width="auto" content-height="2cm"/>
+                    </fo:block>
+                </fo:table-cell>
+            </fo:table-row>
+        </fo:table-body>
+    </fo:table>
+</fo:block>
+
                     <fo:block>
-                        <fo:table  width="110mm" border-style="ridge" border-width="0.5pt">                               
+                        <fo:table width="110mm" border-style="ridge" border-width="0.5pt" >                      
                             <fo:table-body>                                                     
                                 <fo:table-row background-color="lightgray">                                                   
                                     <fo:table-cell width="10mm" border-style="none" text-align="center"  > 

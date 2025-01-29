@@ -8,13 +8,49 @@
             <!-- Page Layout -->
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="A4" page-width="210mm" page-height="297mm" margin="1cm">
-                    <fo:region-body margin="2cm"/>
+                    <fo:region-body margin="3cm"/>
                     <fo:region-before extent="3cm"/>
                     <fo:region-after extent="2cm"/>
                 </fo:simple-page-master>
             </fo:layout-master-set>
 
             <fo:page-sequence master-reference="A4">
+                <fo:static-content flow-name="xsl-region-before">
+                    <fo:block-container>
+                        <fo:table table-layout="fixed" width="100%">
+                            <fo:table-column column-width="33%"/>
+                            <fo:table-column column-width="34%"/>
+                            <fo:table-column column-width="33%"/>
+                            <fo:table-body>
+                            <fo:table-row>
+                            <!-- Left Logo -->
+                            <fo:table-cell>
+                            <fo:block text-align="center">
+                            <fo:external-graphic src="../../images/logoUae.png" content-width="auto" content-height="2cm"/>
+                            </fo:block>
+                            </fo:table-cell>
+
+                            <!-- Title -->
+                            <fo:table-cell>
+                            <fo:block text-align="center" font-size="12pt" font-weight="bold">
+                            Université Abdelmalek Essaâdi<br/>
+                            Ecole Nationale des Sciences Appliquées<br/>
+                            Tanger
+                            </fo:block>
+                            </fo:table-cell>
+
+                    <!-- Right Logo -->
+                    <fo:table-cell>
+                        <fo:block text-align="center">
+                            <fo:external-graphic src="../../images/ensat.png" content-width="auto" content-height="2cm"/>
+                        </fo:block>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+    </fo:block-container>
+</fo:static-content>
+
                 <fo:flow flow-name="xsl-region-body">
                     <xsl:for-each select="/Students/Student">
                         <!-- Title -->

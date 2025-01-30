@@ -27,6 +27,7 @@
                 <!-- Contenu de la partie centrale -->
                 <fo:flow flow-name="xsl-region-body"  >
   <fo:block>
+  
     <fo:table table-layout="fixed" width="100%">
         <!-- Define columns for left logo, center text, and right logo -->
         <fo:table-column column-width="20%"/>
@@ -68,27 +69,27 @@
                                     </fo:table-cell>                         
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" > 
                                         <fo:block>Lundi</fo:block>
-                                        <fo:block>05/12</fo:block>
+                                        <fo:block>03/02</fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
                                         <fo:block>Mardi</fo:block>
-                                        <fo:block>06/12</fo:block>                  
+                                        <fo:block>04/02</fo:block>                  
                                     </fo:table-cell>   
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" > 
                                         <fo:block>Mercredi</fo:block>
-                                        <fo:block>07/12</fo:block>                     
+                                        <fo:block>05/02</fo:block>                     
                                     </fo:table-cell> 
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
                                         <fo:block>Jeudi</fo:block>
-                                        <fo:block>08/12</fo:block>                        
+                                        <fo:block>06/02</fo:block>                        
                                     </fo:table-cell> 
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
                                         <fo:block>Vendredi</fo:block>
-                                        <fo:block>09/12</fo:block>                      
+                                        <fo:block>07/02</fo:block>                      
                                     </fo:table-cell> 
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center"> 
                                         <fo:block>Samedi</fo:block>
-                                        <fo:block>10/12</fo:block>                         
+                                        <fo:block>08/02</fo:block>                         
                                     </fo:table-cell> 
                                 </fo:table-row>     
                                 
@@ -188,28 +189,28 @@
                                     <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
                                         <fo:block>9:00</fo:block>                         
                                     </fo:table-cell> 
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 9:00 - 10:30
                                         </fo:block>
                                     </fo:table-cell>
                                     
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
                                         <fo:block>
-                                            CM - 9:00 - 10:30
+                                            TP - 9:00 - 10:30
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
                                         <fo:block>
-                                            CM - 9:00 - 10:30
+                                            TP - 9:00 - 10:30
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
                                         <fo:block>
-                                            CM - 9:00 - 10:30
+                                            TP - 9:00 - 10:30
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 9:00 - 10:30
                                         </fo:block>
@@ -255,7 +256,7 @@
                                             Salle: <xsl:value-of select="//semaine[1]/mercredi/séance[1]/salle"/>
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F">
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" >
                                         <fo:block font-weight="bold">               
                                             <xsl:value-of select="//semaine[1]/jeudi/séance[1]/module"/>
                                         </fo:block>
@@ -266,7 +267,7 @@
                                             Salle: <xsl:value-of select="//semaine[1]/jeudi/séance[1]/salle"/>
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" >
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F" >
                                         <fo:block font-weight="bold">               
                                             <xsl:variable name="moduleValue" select="//semaine[1]/vendredi/séance[1]/module"/>
                                             <xsl:value-of select="substring($moduleValue, 1, 30)"/>
@@ -375,29 +376,29 @@
                                     <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
                                         <fo:block>11:00</fo:block>                         
                                     </fo:table-cell> 
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 11:00 - 12:30
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="yellow">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
+                                        <fo:block>
+                                            TP - 11:00 - 12:30
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 11:00 - 12:30
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="yellow">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 11:00 - 12:30
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
                                         <fo:block>
-                                            CM - 11:00 - 12:30
-                                        </fo:block>
-                                    </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
-                                        <fo:block>
-                                            CM - 11:00 - 12:30
+                                            TP - 11:00 - 12:30
                                         </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
@@ -441,7 +442,7 @@
                                             Salle: <xsl:value-of select="//semaine[1]/mercredi/séance[2]/salle"/>
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F">
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" >
                                         <fo:block font-weight="bold">               
                                             <xsl:value-of select="//semaine[1]/jeudi/séance[2]/module"/>
                                         </fo:block>
@@ -452,7 +453,7 @@
                                             Salle: <xsl:value-of select="//semaine[1]/jeudi/séance[2]/salle"/>
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" >
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F">
                                         <fo:block font-weight="bold">               
                                             <xsl:variable name="moduleValue" select="//semaine[1]/vendredi/séance[2]/module"/>
                                             <xsl:value-of select="substring($moduleValue, 1, 30)"/>
@@ -606,27 +607,27 @@
                                     <fo:table-cell width="10mm" border-style="none" text-align="center" > 
                                         <fo:block>13:30</fo:block>                         
                                     </fo:table-cell> 
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 13:30 - 15:00
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#00FF7F">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 13:30 - 15:00
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
                                         <fo:block>
-                                            CM - 13:30 - 15:00
+                                            TP - 13:30 - 15:00
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
                                         <fo:block>
-                                            CM - 13:30 - 15:00
+                                            TP - 13:30 - 15:00
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 13:30 - 15:00
                                         </fo:block>
@@ -639,7 +640,7 @@
                                     <fo:table-cell width="10mm" border-style="none" text-align="center" > 
                                         <fo:block></fo:block>                         
                                     </fo:table-cell> 
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F">
                                         <fo:block font-weight="bold">               
                                             <xsl:value-of select="//semaine[1]/lundi/séance[3]/module"/>
                                         </fo:block>
@@ -810,26 +811,30 @@
                                     <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
                                         <fo:block>15:30</fo:block>                         
                                     </fo:table-cell> 
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="yellow">
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
+                                        <fo:block>
+                                            TP - 15:30 - 17:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" >
+                                        <fo:block>
+                                            
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#90EE90">
+                                        <fo:block>
+                                            TP - 15:30 - 17:00
+                                        </fo:block>
+                                    </fo:table-cell>
+                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#D397F8">
                                         <fo:block>
                                             CM - 15:30 - 17:00
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
-                                        <fo:block> </fo:block>
-                                    </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#00FF7F">
-                                        <fo:block>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" background-color="#D397F8">
+                                        <fo:block> <fo:block>
                                             CM - 15:30 - 17:00
-                                        </fo:block>
-                                    </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="dashed" border-width="1pt" text-align="center" background-color="#80008080">
-                                        <fo:block>
-                                            CM - 15:30 - 17:00
-                                        </fo:block>
-                                    </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
-                                        <fo:block> </fo:block>
+                                        </fo:block></fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
                                         <fo:block> </fo:block>
@@ -839,7 +844,7 @@
                                     <fo:table-cell width="10mm" border-style="none" text-align="center" background-color="lightgray"> 
                                         <fo:block></fo:block>                         
                                     </fo:table-cell> 
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="#00FF7F">
                                         <fo:block font-weight="bold">               
                                             <xsl:value-of select="//semaine[1]/lundi/séance[4]/module"/>
                                         </fo:block>
@@ -875,8 +880,16 @@
                                             Salle: <xsl:value-of select="//semaine[1]/jeudi/séance[4]/salle"/>
                                         </fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
-                                        <fo:block> </fo:block>
+                                    <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center" number-rows-spanned="5" background-color="white">
+                                        <fo:block font-weight="bold">               
+                                            <xsl:value-of select="//semaine[1]/vendredi/séance[4]/module"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            <xsl:value-of select="//semaine[1]/vendredi/séance[4]/Professeur"/>
+                                        </fo:block>
+                                        <fo:block  font-size="10pt">               
+                                            Salle: <xsl:value-of select="//semaine[1]/vendredi/séance[4]/salle"/>
+                                        </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell width="40mm" border-style="solid" border-width="1pt" text-align="center">
                                         <fo:block> </fo:block>

@@ -3,7 +3,6 @@ from app.controllers.convert_excel_to_xml import convert_modules_to_xml, convert
 from app.controllers.validate_xml import validate_with_dtd, validate_with_xsd, validate_students_constraints, validate_notes_constraints
 from app.controllers.transform_xml_to_html import transform_xml_to_html
 from app.controllers.transform_xml_to_pdf import transform_xml_to_pdf
-
 import os
 
 main = Blueprint('main', __name__)
@@ -98,90 +97,67 @@ def validate_files():
 
     return jsonify(results), 200  
 
+@main.route('/html/<file_type>', methods=['GET'])
+def transform_html(file_type):
+    """
+    Route dynamique pour transformer des fichiers XML en HTML en utilisant un mapping prédéfini.
+    """
+    file_mapping = {
+        "notes": {
+            "xml": "data_generated/notes/Notes_GINF2.xml",
+            "xslt": "templates/html_templates/Notes.xslt",
+            "html": "data_generated/notes/Notes_GINF2.html"
+        },
+        "ratt": {
+            "xml": "data_generated/notes/Notes_GINF2.xml",
+            "xslt": "templates/html_templates/Ratt.xslt",
+            "html": "data_generated/notes/Ratt_GINF2.html"
+        },
+        "modules": {
+            "xml": "data_generated/modules/Modules_GINF2.xml",
+            "xslt": "templates/html_templates/Modules.xslt",
+            "html": "data_generated/modules/Modules_GINF2.html"
+        },
+        "tps": {
+            "xml": "data_generated/tp/TP_GINF2.xml",
+            "xslt": "templates/html_templates/GroupeTP.xslt",
+            "html": "data_generated/tp/TP_GINF2.html"
+        },
+        "edt": {
+            "xml": "data_generated/edt/Edt_GINF2.xml",
+            "xslt": "templates/Edt_GINF2.xslt",
+            "html": "data_generated/edt/Edt_GINF2.html"
+        },
+        "students": {
+            "xml": "data_generated/students/Students_GINF2.xml",
+            "xslt": "templates/html_templates/Students.xslt",
+            "html": "data_generated/students/Students_GINF2.html"
+        },
+        "releve": {
+            "xml": "data_generated/notes/Notes_GINF2.xml",
+            "xslt": "templates/html_templates/Releve.xslt",
+            "html": "data_generated/notes/Releve_GINF2.html"
+        }
+    }
 
-@main.route('/transform/notes', methods=['GET'])
-def transform_notes():
-    """
-    Route pour transformer Notes_GINF2.xml en Notes_GINF2.html.
-    """
-    xml_file = "data_generated/notes/Notes_GINF2.xml"
-    xslt_file = "templates/html_templates/Notes.xslt"
-    output_file = "data_generated/notes/Notes_GINF2.html"
+    if file_type not in file_mapping:
+        return Response(f"Type de fichier '{file_type}' non valide.", status=400, mimetype="text/html")
 
-    if transform_xml_to_html(xml_file, xslt_file, output_file):
-        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
-    else:
-        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
-    
-@main.route('/transform/ratt', methods=['GET'])
-def transform_ratt():
-    """
-    Route pour transformer Notes_GINF2.xml en Notes_GINF2.html.
-    """
-    xml_file = "data_generated/notes/Notes_GINF2.xml"
-    xslt_file = "templates/html_templates/Ratt.xslt"
-    output_file = "data_generated/notes/Ratt_GINF2.html"
+    config = file_mapping[file_type]
+    xml_path = os.path.abspath(config['xml'])
+    xslt_path = os.path.abspath(config['xslt'])
+    html_path = os.path.abspath(config['html'])
 
-    if transform_xml_to_html(xml_file, xslt_file, output_file):
-        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
-    else:
-        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
-    
-@main.route('/transform/modules', methods=['GET'])
-def transform_modules():
-    """
-    Route pour transformer Modules_GINF2.xml en Modules_GINF2.html.
-    """
-    xml_file = "data_generated/modules/Modules_GINF2.xml"
-    xslt_file = "templates/html_templates/Modules.xslt"
-    output_file = "data_generated/modules/Modules_GINF2.html"
+    # Vérification de l'existence des fichiers
+    if not os.path.exists(xml_path):
+        return Response(f"Fichier XML introuvable : {config['xml']}", status=404, mimetype="text/html")
+    if not os.path.exists(xslt_path):
+        return Response(f"Fichier XSLT introuvable : {config['xslt']}", status=404, mimetype="text/html")
 
-    if transform_xml_to_html(xml_file, xslt_file, output_file):
-        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
-    else:
-        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
-    
-
-@main.route('/transform/tps', methods=['GET'])
-def transform_tps():
-    """
-    Route pour transformer TP_GINF2.xml en TP_GINF2.html.
-    """
-    xml_file = "data_generated/tp/TP_GINF2.xml"
-    xslt_file = "templates/GroupeTP.xslt"
-    output_file = "data_generated/tp/TP_GINF2.html"
-
-    if transform_xml_to_html(xml_file, xslt_file, output_file):
-        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
-    else:
-        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
-
-@main.route('/transform/Emploi', methods=['GET'])
-def transform_emploi():
-    """
-    Route pour transformer emploi_GINF2.xml en emploi_GINF2.html.
-    """
-    xml_file = "data_generated/Emploi/emploi_GINF2.xml"
-    xslt_file = "templates/emploi_GINF2.xslt"
-    output_file = "data_generated/Emploi/emploi_GINF2.html"
-
-    if transform_xml_to_html(xml_file, xslt_file, output_file):
-        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
-    else:
-        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
-
-
-@main.route('/transform/students', methods=['GET'])
-def transform_students():
-    """
-    Route pour transformer Students_GINF2.xml en Students_GINF2.html.
-    """
-    xml_file = "data_generated/students/Students_GINF2.xml"
-    xslt_file = "templates/html_templates/Students.xslt"
-    output_file = "data_generated/students/Students_GINF2.html"
-
-    if transform_xml_to_html(xml_file, xslt_file, output_file):
-        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    # Transformation XML → HTML
+    if transform_xml_to_html(xml_path, xslt_path, html_path):
+        html_url = f"/{config['html'].replace(os.sep, '/')}"  # Génération de l'URL correcte
+        return Response(f"HTML généré avec succès : <a href='{html_url}'>{html_url}</a>", mimetype="text/html")
     else:
         return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
     
@@ -265,3 +241,4 @@ def transform_to_pdf(file_type):
     except Exception as e:
         print(f"❌ Erreur interne : {str(e)}")
         return Response(f"Erreur interne : {str(e)}", status=500)
+

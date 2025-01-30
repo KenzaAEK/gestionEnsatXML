@@ -39,6 +39,26 @@
         </style>
       </head>
       <body>
+      <!-- Header Section -->
+      <div class="header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3cm;">
+          <!-- Left Logo -->
+          <!-- Left Logo -->
+              <div style="flex: 1; text-align: center;">
+                <img src="http://127.0.0.1:5000/static/images/logo_uae.png" style="height: 2cm;" alt="Logo UAE"/>
+              </div>
+
+          <!-- Center Text -->
+          <div style="flex: 2; text-align: center; font-size: 12pt; font-weight: bold;">
+              Université Abdelmalek Essaâdi<br/>
+              Ecole Nationale des Sciences Appliquées<br/>
+              Tanger
+          </div>
+
+          <!-- Right Logo -->
+          <div style="flex: 1; text-align: center;">
+              <img src="http://127.0.0.1:5000/static/images/logo_ensa.png" style="height: 2cm;" alt="Logo ENSAT"/>
+          </div>
+      </div>
         <!-- Loop through each module and display students needing a retake -->
         <xsl:for-each select="Students/Student/Modules/Module[generate-id() = generate-id(key('modules', Name)[1])]">
           <h2>Liste de rattrapage: <xsl:value-of select="Name"/></h2>

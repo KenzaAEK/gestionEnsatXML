@@ -1,4 +1,4 @@
-from flask import Blueprint, Response, request, send_file, jsonify
+from flask import Blueprint, Response, request, send_file, jsonify , send_from_directory,abort
 from app.controllers.convert_excel_to_xml import convert_modules_to_xml, convert_students_to_xml, convert_notes_to_xml
 from app.controllers.validate_xml import validate_with_dtd, validate_with_xsd, validate_students_constraints, validate_notes_constraints
 from app.controllers.transform_xml_to_html import transform_xml_to_html
@@ -185,6 +185,21 @@ def transform_students():
     else:
         return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
     
+@main.route('/transform/releve', methods=['GET'])
+def transform_releve():
+    """
+    Route pour transformer Students_GINF2.xml en Students_GINF2.html.
+    """
+    
+    xml_file = "data_generated/notes/Notes_GINF2.xml"
+    xslt_file = "templates/html_templates/Releve.xslt"
+    output_file = "data_generated/notes/Releve_GINF2.html"
+
+    if transform_xml_to_html(xml_file, xslt_file, output_file):
+        return Response(f"HTML généré avec succès : <a href='{output_file}'>{output_file}</a>", mimetype="text/html")
+    else:
+        return Response("Erreur lors de la transformation XML → HTML.", mimetype="text/html")
+    
 @main.route('/pdf/<file_type>', methods=['GET'])
 def transform_to_pdf(file_type):
     """
@@ -265,3 +280,80 @@ def transform_to_pdf(file_type):
     except Exception as e:
         print(f"❌ Erreur interne : {str(e)}")
         return Response(f"Erreur interne : {str(e)}", status=500)
+
+
+@main.route('/static/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory(os.path.join(main.root_path, '../static/images'), filename)
+
+@main.route('/data_generated/<path:filename>')
+def serve_generated_files(filename):
+    """
+    Sert les fichiers HTML générés dans le dossier `data_generated`
+    """
+    return send_from_directory(os.path.join(os.getcwd(), 'data_generated'), filename)
+
+DEFAULT_EXCEL_PATH = "data_excel"
+
+@main.route('/default-excel/<filename>', methods=['GET'])
+def serve_default_excel(filename):
+    """ Sert les fichiers Excel par défaut. """
+    file_path = os.path.join(DEFAULT_EXCEL_PATH, filename)
+    if os.path.exists(file_path):
+        return send_from_directory(DEFAULT_EXCEL_PATH, filename, as_attachment=True)
+    else:
+        abort(404, description="Fichier non trouvé")
+
+@main.route('/download/xml/<file_type>', methods=['GET'])
+def download_xml(file_type):
+    """
+    Permet de télécharger un fichier XML généré après conversion.
+    """
+    file_mapping = {
+        "students": os.path.abspath("data_generated/students/Students_GINF2.xml"),
+        "modules": os.path.abspath("data_generated/modules/Modules_GINF2.xml"),
+        "notes": os.path.abspath("data_generated/notes/Notes_GINF2.xml")
+    }
+
+    if file_type not in file_mapping:
+        return Response(f"Type '{file_type}' non valide.", status=400)
+
+    xml_file = file_mapping[file_type]
+
+    if not os.path.exists(xml_file):
+        return Response(f"❌ Fichier XML '{file_type}' introuvable ! Chemin : {xml_file}", status=404)
+
+    return send_file(xml_file, as_attachment=True, mimetype="text/xml")
+
+
+@main.route('/pdf/student_card', methods=['GET'])
+def generate_student_card_pdf():
+    """
+    Génère un PDF avec les cartes de tous les étudiants (3 par page).
+    """
+    try:
+        xml_file = os.path.abspath("data_generated/student_card/student_card.xml")
+        xslt_file = os.path.abspath("templates/pdf_templates/StudentCards.fo")
+        output_pdf = os.path.abspath("data_generated/student_card/StudentCards.pdf")
+
+        # Vérification des fichiers
+        if not os.path.exists(xml_file):
+            return Response(f"❌ Fichier XML '{xml_file}' introuvable.", status=400)
+        if not os.path.exists(xslt_file):
+            return Response(f"❌ Fichier XSLT '{xslt_file}' introuvable.", status=400)
+
+        # Génération du PDF avec Apache FOP
+        transform_xml_to_pdf(xml_file, xslt_file, output_pdf)
+
+        # Vérifier si le PDF a été créé
+        if os.path.exists(output_pdf):
+            return send_file(output_pdf, as_attachment=True, mimetype="application/pdf")
+        else:
+            return Response("❌ Erreur lors de la génération du PDF.", status=500)
+
+    except Exception as e:
+        return Response(f"❌ Erreur interne : {str(e)}", status=500)
+
+@main.route('/static/images/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static/images', filename)

@@ -34,6 +34,25 @@
                 </style>
             </head>
             <body>
+            <!-- Header Section -->
+<div class="header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3cm;">
+    <!-- Left Logo -->
+    <div style="flex: 1; text-align: center;">
+        <img src="../../images/logoUae.png" style="height: 2cm;" alt="Logo UAE"/>
+    </div>
+
+    <!-- Center Text -->
+    <div style="flex: 2; text-align: center; font-size: 12pt; font-weight: bold;">
+        Université Abdelmalek Essaâdi<br/>
+        Ecole Nationale des Sciences Appliquées<br/>
+        Tanger
+    </div>
+
+    <!-- Right Logo -->
+    <div style="flex: 1; text-align: center;">
+        <img src="../../images/ensat.png" style="height: 2cm;" alt="Logo ENSAT"/>
+    </div>
+</div>
                 <h1>Liste des Modules</h1>
                 <table>
                     <thead>

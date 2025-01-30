@@ -46,7 +46,7 @@
                     <table style="width: 100%;">
                         <tr>
                             <td style="width: 33%; text-align: center;">
-                                <img src="http://127.0.0.1:5000/static/images/logo_uae.png" style="height: 2cm;"/>
+                                <img src="../../images/logoUae.png" style="height: 2cm;"/>
                             </td>
                             <td style="width: 34%; text-align: center; font-size: 12pt; font-weight: bold;">
                                 Université Abdelmalek Essaâdi<br/>
@@ -54,7 +54,7 @@
                                 Tanger
                             </td>
                             <td style="width: 33%; text-align: center;">
-                                <img src="http://127.0.0.1:5000/static/images/logo_ensa.png" style="height: 2cm;"/>
+                                <img src="../../images/ensat.png" style="height: 2cm;"/>
                             </td>
                         </tr>
                     </table>

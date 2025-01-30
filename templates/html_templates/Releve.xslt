@@ -101,6 +101,13 @@
                                     </td>
                                 </tr>
                             </xsl:for-each>
+                        <!--moyenne-->
+                        <tr class="average-grade">
+                                <td style="text-align: right; font-weight: bold;">Moyenne Générale :</td>
+                                <td style="text-align: right; font-weight: bold;">
+                                    <xsl:value-of select="format-number(sum(Modules/Module/NoteFinale) div count(Modules/Module/NoteFinale), '0.00')"/> / 20
+                                </td>
+                        </tr>
                         </table>
 
                         <!-- Page break for printing -->

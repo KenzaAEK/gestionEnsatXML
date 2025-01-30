@@ -1,12 +1,15 @@
-<TPGroups><Group id="1"><Student>
-    <CodeApogee>21010395</CodeApogee>
-    <CIN>KB247633</CIN>
-    <CNE>S132196187</CNE>
-    <Nom>ABBAD</Nom>
-    <Prenom>ABDELOUAHED</Prenom>
-    <LieuNaissance>TANGER</LieuNaissance>
-    <DateNaissance>2004-06-21</DateNaissance>
-  </Student><Student>
+<TPGroups>
+  <Group id="1">
+    <Student>
+      <CodeApogee>21010395</CodeApogee>
+      <CIN>KB247633</CIN>
+      <CNE>S132196187</CNE>
+      <Nom>ABBAD</Nom>
+      <Prenom>ABDELOUAHED</Prenom>
+      <LieuNaissance>TANGER</LieuNaissance>
+      <DateNaissance>2004-06-21</DateNaissance>
+    </Student>
+    <Student>
     <CodeApogee>21010278</CodeApogee>
     <CIN>AD291762</CIN>
     <CNE>J136291354</CNE>
@@ -14,7 +17,10 @@
     <Prenom>SOUFIANE</Prenom>
     <LieuNaissance>RABAT</LieuNaissance>
     <DateNaissance>2001-09-25</DateNaissance>
-  </Student></Group><Group id="2"><Student>
+    </Student>
+  </Group>
+  <Group id="2">
+  <Student>
     <CodeApogee>21011326</CodeApogee>
     <CIN>K585284</CIN>
     <CNE>P130521166</CNE>

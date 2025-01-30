@@ -97,7 +97,7 @@ def validate_files():
 
     return jsonify(results), 200  
 
-@main.route('/html/<file_type>', methods=['GET'])
+@main.route('/transform/<file_type>', methods=['GET'])
 def transform_html(file_type):
     """
     Route dynamique pour transformer des fichiers XML en HTML en utilisant un mapping prédéfini.

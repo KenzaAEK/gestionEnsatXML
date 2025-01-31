@@ -97,9 +97,11 @@ def validate_files():
 
     return jsonify(results), 200  
 
+
 @main.route('/transform/<file_type>', methods=['GET'])
 def transform_html(file_type):
     """
+    Route dynamique pour transformer des fichiers XML en HTML en utilisant un mapping prédéfini.
     Route dynamique pour transformer des fichiers XML en HTML en utilisant un mapping prédéfini.
     """
     file_mapping = {
@@ -142,12 +144,28 @@ def transform_html(file_type):
 
     if file_type not in file_mapping:
         return Response(f"Type de fichier '{file_type}' non valide.", status=400, mimetype="text/html")
+    if file_type not in file_mapping:
+        return Response(f"Type de fichier '{file_type}' non valide.", status=400, mimetype="text/html")
 
     config = file_mapping[file_type]
     xml_path = os.path.abspath(config['xml'])
     xslt_path = os.path.abspath(config['xslt'])
     html_path = os.path.abspath(config['html'])
+    config = file_mapping[file_type]
+    xml_path = os.path.abspath(config['xml'])
+    xslt_path = os.path.abspath(config['xslt'])
+    html_path = os.path.abspath(config['html'])
 
+    # Vérification de l'existence des fichiers
+    if not os.path.exists(xml_path):
+        return Response(f"Fichier XML introuvable : {config['xml']}", status=404, mimetype="text/html")
+    if not os.path.exists(xslt_path):
+        return Response(f"Fichier XSLT introuvable : {config['xslt']}", status=404, mimetype="text/html")
+
+    # Transformation XML → HTML
+    if transform_xml_to_html(xml_path, xslt_path, html_path):
+        html_url = f"/{config['html'].replace(os.sep, '/')}"  # Génération de l'URL correcte
+        return Response(f"HTML généré avec succès : <a href='{html_url}'>{html_url}</a>", mimetype="text/html")
     # Vérification de l'existence des fichiers
     if not os.path.exists(xml_path):
         return Response(f"Fichier XML introuvable : {config['xml']}", status=404, mimetype="text/html")

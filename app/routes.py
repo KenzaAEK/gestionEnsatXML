@@ -4,7 +4,9 @@ from app.controllers.validate_xml import validate_with_dtd, validate_with_xsd, v
 from app.controllers.transform_xml_to_html import transform_xml_to_html
 from app.controllers.transform_xml_to_pdf import transform_xml_to_pdf
 from app.controllers.convert_student_to_card import generate_student_cards
+from app.controllers.generate_tp_groups import execute_xquery
 import os
+import subprocess
 
 main = Blueprint('main', __name__)
 
@@ -98,6 +100,18 @@ def validate_files():
 
     return jsonify(results), 200  
 
+@main.route('/generateTP', methods=['GET'])
+def generate_tp():
+    """
+    Exécute la requête XQuery et génère le fichier XML TP.
+    """
+    try:
+        execute_xquery()
+        return jsonify({"message": "Le fichier TP a été généré avec succès"}), 200
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": f"Erreur d'exécution de la requête XQuery : {str(e)}"}), 500
+    except Exception as e:
+        return jsonify({"error": f"Erreur inattendue : {str(e)}"}), 500
 
 @main.route('/transform/<file_type>', methods=['GET'])
 def transform_html(file_type):
@@ -215,7 +229,7 @@ def transform_to_pdf(file_type):
             "releve": {
                 "xml": os.path.abspath("data_generated/notes/Notes_GINF2.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/Releve.fo"),
-                "pdf": os.path.abspath("data_generated/notes/releve.pdf")
+                "pdf": os.path.abspath("data_generated/notes/Releve_GINF2.pdf")
             },
              "tp": {
                 "xml": os.path.abspath("data_generated/tp/TP_GINF2.xml"),

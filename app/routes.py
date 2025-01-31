@@ -125,7 +125,7 @@ def transform_html(file_type):
         },
         "edt": {
             "xml": "data_generated/edt/Edt_GINF2.xml",
-            "xslt": "templates/Edt_GINF2.xslt",
+            "xslt": "templates/html_templates/Edt_GINF2.xslt",
             "html": "data_generated/edt/Edt_GINF2.html"
         },
         "students": {

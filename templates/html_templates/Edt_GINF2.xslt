@@ -14,7 +14,7 @@
                     .course-box { display: flex; flex-direction: column; border: 1px solid black; width: 100%; height: 100px; }
                     .course-header { background-color: #D397F8; padding: 5px; font-size: 12px; font-weight: bold; text-align: center; border-bottom: 1px solid black; }
                     .tp .course-header { background-color: #90EE90; }
-                    .important .course-header { background-color: #00FF00; }
+                    .td .course-header { background-color: #90EE90; } <!-- Adjust color as needed -->
                     .course-content { background-color: white; padding: 10px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
                 </style>
             </head>
@@ -30,80 +30,75 @@
                         <th>Vendredi</th>
                         <th>Samedi</th>
                     </tr>
-                    <tr>
-                        <td>09:00 - 10:30</td>
-                        <td><div class="course-box"><div class="course-header">CM - 09h00 - 10h30</div><div class="course-content">CRYPTOGRAPHIE <br/> LAZAAR <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 09h00 - 10h30</div><div class="course-content">PROGRAMMATION DECL <br/> CHAFIK <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 09h00 - 10h30</div><div class="course-content">TRAITEMENT D IMAGE <br/> LACHKAR <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 09h00 - 10h30</div><div class="course-content">CRYPTOGRAPHIE <br/> LAZAAR <br/> Salle B20</div></div></td>
-                        <td><div class="course-box important"><div class="course-header">CM - 09h00 - 10h30</div><div class="course-content">GESTION DES DONNEE <br/> BADIR <br/> Salle B20</div></div></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>10:30 - 11:00</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>11:00 - 12:30</td>
-                        <td><div class="course-box"><div class="course-header">CM - 11h00 - 12h30</div><div class="course-content">CRYPTOGRAPHIE <br/> LAZAAR <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 11h00 - 12h30</div><div class="course-content">PROGRAMMATION DECL <br/> CHAFIK <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 11h00 - 12h30</div><div class="course-content">TRAITEMENT D IMAGE <br/> LACHKAR <br/> Salle B20</div></div></td>
-                        <td><div class="course-box"><div class="course-header">CM - 11h00 - 12h30</div><div class="course-content">DOT NET C SHARP <br/> GHAILANI <br/> Salle B20</div></div></td>
-                        <td><div class="course-box important"><div class="course-header">TP - 11h00 - 12h30</div><div class="course-content">GESTION DES DONNEE <br/> BADIR <br/> Salle B20</div></div></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>12:30 - 13:30</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>13:30 - 15:00</td>
-                        <td><div class="course-box important"><div class="course-header">CM - 13h30 - 15h00</div><div class="course-content">BASES DE DONNEES N <br/> BADIR <br/> Salle B20</div></div></td>
-                        <td><div class="course-box"><div class="course-header">CM - 13h30 - 15h00</div><div class="course-content">PROGRAMMATION DECL <br/> EL ALAMI <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 13h30 - 15h00</div><div class="course-content">MANAGEMENT DE PROJ <br/> RAHALI AZOUZI <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 13h30 - 15h00</div><div class="course-content">DOT NET C SHARP <br/> GHAILANI <br/> Salle B20</div></div></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>15:00 - 15:30</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>15:30 - 17:00</td>
-                        <td><div class="course-box important"><div class="course-header">TP - 15h30 - 17h00</div><div class="course-content">BASES DE DONNEES N <br/> BADIR <br/> Salle B20</div></div></td>
-                        <td></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 15h30 - 17h00</div><div class="course-content">MANAGEMENT DE PROJ <br/> RAHALI AZOUZI <br/> Salle B20</div></div></td>
-                        <td><div class="course-box tp"><div class="course-header">TP - 15h30 - 17h00</div><div class="course-content">DOT NET C SHARP <br/> GHAILANI <br/> Salle B20</div></div></td>
-                        <td><div class="course-box"><div class="course-header">CM - 14h30 - 16h00</div><div class="course-content">COMPTABILITE 2 <br/> NAITBOUBKER <br/> Salle B20</div></div></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>17:00 - 18:30</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><div class="course-box"><div class="course-header">CM - 16h30 - 18h00</div><div class="course-content">COMPTABILITE 2 <br/> NAITBOUBKER <br/> Salle B20</div></div></td>
-                        <td></td>
-                    </tr>
+                    <!-- Process each time slot -->
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">09:00</xsl:with-param>
+                        <xsl:with-param name="end">10:30</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">10:30</xsl:with-param>
+                        <xsl:with-param name="end">11:00</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">11:00</xsl:with-param>
+                        <xsl:with-param name="end">12:30</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">12:30</xsl:with-param>
+                        <xsl:with-param name="end">13:30</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">13:30</xsl:with-param>
+                        <xsl:with-param name="end">15:00</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">15:00</xsl:with-param>
+                        <xsl:with-param name="end">15:30</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">15:30</xsl:with-param>
+                        <xsl:with-param name="end">17:00</xsl:with-param>
+                    </xsl:call-template>
+                    <xsl:call-template name="time-slot">
+                        <xsl:with-param name="start">17:00</xsl:with-param>
+                        <xsl:with-param name="end">18:30</xsl:with-param>
+                    </xsl:call-template>
                 </table>
             </body>
         </html>
+    </xsl:template>
+
+    <!-- Template to process each time slot -->
+    <xsl:template name="time-slot">
+        <xsl:param name="start"/>
+        <xsl:param name="end"/>
+        <tr>
+            <td><xsl:value-of select="$start"/> - <xsl:value-of select="$end"/></td>
+            <!-- Check each day for matching sessions -->
+            <td><xsl:apply-templates select="/Emlpoi/semaine/lundi/séance[translate(@debut, 'h', ':') = $start and translate(@fin, 'h', ':') = $end]"/></td>
+            <td><xsl:apply-templates select="/Emlpoi/semaine/mardi/séance[translate(@debut, 'h', ':') = $start and translate(@fin, 'h', ':') = $end]"/></td>
+            <td><xsl:apply-templates select="/Emlpoi/semaine/mercredi/séance[translate(@debut, 'h', ':') = $start and translate(@fin, 'h', ':') = $end]"/></td>
+            <td><xsl:apply-templates select="/Emlpoi/semaine/jeudi/séance[translate(@debut, 'h', ':') = $start and translate(@fin, 'h', ':') = $end]"/></td>
+            <td><xsl:apply-templates select="/Emlpoi/semaine/vendredi/séance[translate(@debut, 'h', ':') = $start and translate(@fin, 'h', ':') = $end]"/></td>
+            <td><xsl:apply-templates select="/Emlpoi/semaine/samedi/séance[translate(@debut, 'h', ':') = $start and translate(@fin, 'h', ':') = $end]"/></td>
+        </tr>
+    </xsl:template>
+
+    <!-- Template to render a session -->
+    <xsl:template match="séance">
+        <div class="course-box">
+            <xsl:attribute name="class">
+                <xsl:text>course-box </xsl:text>
+                <xsl:value-of select="translate(@type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
+            </xsl:attribute>
+            <div class="course-header">
+                <xsl:value-of select="@type"/> - <xsl:value-of select="@debut"/> - <xsl:value-of select="@fin"/>
+            </div>
+            <div class="course-content">
+                <xsl:value-of select="module"/><br/>
+                <xsl:value-of select="Professeur"/><br/>
+                <xsl:value-of select="salle"/>
+            </div>
+        </div>
     </xsl:template>
 </xsl:stylesheet>

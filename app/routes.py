@@ -23,7 +23,8 @@ def home():
             "/convert/students": "Convertit le fichier Students_GINF2.xlsx en XML.",
             "/convert/notes": "Convertit le fichier Notes_GINF2.xlsx en XML, avec tri et formatage des notes.",
             "/validate": "Valide les fichiers XML generes avec les DTD et XSD correspondants.",
-            "/generateTP": "Execute une requete XQuery pour generer les groupes de TP."
+            "/generateTP": "Execute une requete XQuery pour generer les groupes de TP.",
+            "/studenttocard": "Convertit fichier xml students en ficher xml student cards"
         },
 
         "Transformation XML en HTML": {
@@ -309,3 +310,26 @@ def transform_to_pdf(file_type):
     except Exception as e:
         print(f"❌ Erreur interne : {str(e)}")
         return Response(f"Erreur interne : {str(e)}", status=500)
+    
+@main.route('/studenttocard', methods=['GET'])
+def convert_card():
+    input_file = "data_generated/students/Students_GINF2.xml"
+    output_file = "data_generated/student_card/StudentCards_GINF2.xml"
+
+    # Vérification si le fichier d'entrée existe
+    if not os.path.exists(input_file):
+        return jsonify({"error": f"Input file '{input_file}' does not exist"}), 400
+
+    try:
+        # Vérification si le fichier de sortie existe déjà
+        if not os.path.exists(output_file):
+            # Création du dossier parent si nécessaire
+            os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
+        # Appel de la fonction pour convertir les étudiants
+        generate_student_cards(input_file, output_file)
+
+        return jsonify({"message": f"Output saved to {output_file}"}), 200
+    except Exception as e:
+        # Retourner une erreur si la conversion échoue
+        return jsonify({"error": str(e)}), 500

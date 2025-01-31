@@ -203,7 +203,7 @@ def transform_to_pdf(file_type):
                 "pdf": os.path.abspath("data_generated/notes/Notes_GINF2.pdf")
             },
              "student_card": {
-                "xml": os.path.abspath("data_generated/students/StudentCards_GINF2.xml"),
+                "xml": os.path.abspath("data_generated/student_card/StudentCards_GINF2.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/StudentCards.fo"),
                 "pdf": os.path.abspath("data_generated/student_card/StudentCards.pdf")
             },
@@ -263,7 +263,7 @@ def transform_to_pdf(file_type):
 @main.route('/studenttocard', methods=['GET'])
 def convert_card():
     input_file = "data_generated/students/Students_GINF2.xml"
-    output_file = "data_generated/students/StudentCards_GINF2.xml"
+    output_file = "data_generated/student_card/StudentCards_GINF2.xml"
 
     # Vérification si le fichier d'entrée existe
     if not os.path.exists(input_file):

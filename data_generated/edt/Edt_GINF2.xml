@@ -59,7 +59,7 @@ xsi:noNamespaceSchemaLocation="emplois.xsd">
             <Professeur>RAHALI AZOUZI</Professeur>
             <salle>Salle B20</salle>
         </séance>
-        <séance type="TP" debut="13h30" fin="15h00">
+        <séance type="TP" debut="15h30" fin="17h00">
             <module>MANAGEMENT DE PROJ</module>
             <Professeur>RAHALI AZOUZI</Professeur>
             <salle>Salle B20</salle>
@@ -98,7 +98,7 @@ xsi:noNamespaceSchemaLocation="emplois.xsd">
             <Professeur>BADIR</Professeur>
             <salle>Salle B20</salle>
         </séance>
-        <séance type="CM" debut="14h00" fin="15h00">
+        <séance type="CM" debut="13h30" fin="15h00">
             <module>COMPTABILITE 2</module>
             <Professeur>NAITBOUBKER</Professeur>
             <salle>Salle B20</salle>

@@ -3,6 +3,7 @@ from app.controllers.convert_excel_to_xml import convert_modules_to_xml, convert
 from app.controllers.validate_xml import validate_with_dtd, validate_with_xsd, validate_students_constraints, validate_notes_constraints
 from app.controllers.transform_xml_to_html import transform_xml_to_html
 from app.controllers.transform_xml_to_pdf import transform_xml_to_pdf
+from app.controllers.convert_student_to_card import generate_student_cards
 import os
 
 main = Blueprint('main', __name__)
@@ -127,7 +128,7 @@ def transform_html(file_type):
         },
         "edt": {
             "xml": "data_generated/edt/Edt_GINF2.xml",
-            "xslt": "templates/html_templates/Edt_GINF2.xslt",
+            "xslt": "templates/html_templates/Edt.xslt",
             "html": "data_generated/edt/Edt_GINF2.html"
         },
         "students": {
@@ -202,9 +203,9 @@ def transform_to_pdf(file_type):
                 "pdf": os.path.abspath("data_generated/notes/Notes_GINF2.pdf")
             },
              "student_card": {
-                "xml": os.path.abspath("data_generated/student_card/student_card.xml"),
-                "xslt": os.path.abspath("templates/pdf_templates/StudentCard.fo"),
-                "pdf": os.path.abspath("data_generated/student_card/StudentCard.pdf")
+                "xml": os.path.abspath("data_generated/students/StudentCards_GINF2.xml"),
+                "xslt": os.path.abspath("templates/pdf_templates/StudentCards.fo"),
+                "pdf": os.path.abspath("data_generated/student_card/StudentCards.pdf")
             },
             "edt": {
                 "xml": os.path.abspath("data_generated/edt/Edt_GINF2.xml"),
@@ -225,8 +226,7 @@ def transform_to_pdf(file_type):
                 "xml": os.path.abspath("data_generated/notes/Notes_GINF2.xml"),
                 "xslt": os.path.abspath("templates/pdf_templates/Ratt.fo"),
                 "pdf": os.path.abspath("data_generated/notes/Ratt_GINF2.pdf")
-            }
-           
+            }          
             
         }
 
@@ -260,3 +260,25 @@ def transform_to_pdf(file_type):
         print(f"❌ Erreur interne : {str(e)}")
         return Response(f"Erreur interne : {str(e)}", status=500)
 
+@main.route('/studenttocard', methods=['GET'])
+def convert_card():
+    input_file = "data_generated/students/Students_GINF2.xml"
+    output_file = "data_generated/students/StudentCards_GINF2.xml"
+
+    # Vérification si le fichier d'entrée existe
+    if not os.path.exists(input_file):
+        return jsonify({"error": f"Input file '{input_file}' does not exist"}), 400
+
+    try:
+        # Vérification si le fichier de sortie existe déjà
+        if not os.path.exists(output_file):
+            # Création du dossier parent si nécessaire
+            os.makedirs(os.path.dirname(output_file), exist_ok=True)
+
+        # Appel de la fonction pour convertir les étudiants
+        generate_student_cards(input_file, output_file)
+
+        return jsonify({"message": f"Output saved to {output_file}"}), 200
+    except Exception as e:
+        # Retourner une erreur si la conversion échoue
+        return jsonify({"error": str(e)}), 500

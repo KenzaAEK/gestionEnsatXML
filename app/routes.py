@@ -12,7 +12,43 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    return "Bienvenue sur l'API de conversion Excel vers XML."
+    """
+    Page d'accueil affichant toutes les routes disponibles avec leur description.
+    """
+    routes_description = {
+        "Bienvenue": "API pour la conversion Excel en XML, validation, transformation et generation de documents.",
+
+        "Routes principales": {
+            "/convert/modules": "Convertit le fichier Modules_GINF2.xlsx en XML.",
+            "/convert/students": "Convertit le fichier Students_GINF2.xlsx en XML.",
+            "/convert/notes": "Convertit le fichier Notes_GINF2.xlsx en XML, avec tri et formatage des notes.",
+            "/validate": "Valide les fichiers XML generes avec les DTD et XSD correspondants.",
+            "/generateTP": "Execute une requete XQuery pour generer les groupes de TP."
+        },
+
+        "Transformation XML en HTML": {
+            "/transform/notes": "Genere un fichier HTML pour l'affichage des notes.",
+            "/transform/ratt": "Genere un HTML pour les notes de rattrapage.",
+            "/transform/modules": "Genere un fichier HTML pour les modules.",
+            "/transform/tps": "Genere un fichier HTML pour les groupes de TP.",
+            "/transform/edt": "Genere un fichier HTML pour emploi du temps.",
+            "/transform/students": "Genere un fichier HTML pour la liste des etudiants.",
+            "/transform/releve": "Genere un HTML pour le releve de notes."
+        },
+
+        "Generation XML en PDF": {
+            "/pdf/students": "Genere un PDF contenant la liste des etudiants.",
+            "/pdf/modules": "Genere un PDF avec la liste des modules.",
+            "/pdf/notes": "Genere un relevé de notes au format PDF.",
+            "/pdf/student_card": "Genere un PDF contenant les cartes etudiants.",
+            "/pdf/edt": "Genereun PDF pour emploi du temps.",
+            "/pdf/releve": "Genere un PDF du releve de notes.",
+            "/pdf/tp": "Genere un PDF des groupes de TP.",
+            "/pdf/ratt": "Genere un PDF des notes de rattrapage."
+        }
+    }
+    
+    return jsonify(routes_description), 200
 
 # Route pour les modules
 @main.route('/convert/modules', methods=['GET'])
@@ -273,26 +309,3 @@ def transform_to_pdf(file_type):
     except Exception as e:
         print(f"❌ Erreur interne : {str(e)}")
         return Response(f"Erreur interne : {str(e)}", status=500)
-
-@main.route('/studenttocard', methods=['GET'])
-def convert_card():
-    input_file = "data_generated/students/Students_GINF2.xml"
-    output_file = "data_generated/student_card/StudentCards_GINF2.xml"
-
-    # Vérification si le fichier d'entrée existe
-    if not os.path.exists(input_file):
-        return jsonify({"error": f"Input file '{input_file}' does not exist"}), 400
-
-    try:
-        # Vérification si le fichier de sortie existe déjà
-        if not os.path.exists(output_file):
-            # Création du dossier parent si nécessaire
-            os.makedirs(os.path.dirname(output_file), exist_ok=True)
-
-        # Appel de la fonction pour convertir les étudiants
-        generate_student_cards(input_file, output_file)
-
-        return jsonify({"message": f"Output saved to {output_file}"}), 200
-    except Exception as e:
-        # Retourner une erreur si la conversion échoue
-        return jsonify({"error": str(e)}), 500

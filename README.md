@@ -1,7 +1,7 @@
 # EduXML 
 
 ## Introduction
-Bienvenue dans l'API permettant la conversion de fichiers Excel en XML, leur validation, transformation en HTML, et génération de documents PDF. Cette API facilite la gestion des fichiers académiques (étudiants, modules, notes, emploi du temps, etc.) et offre diverses fonctionnalités accessibles via des routes spécifiques.
+Bienvenue dans notre app permettant la conversion de fichiers Excel en XML, leur validation, transformation en HTML, et génération de documents PDF. Cette API facilite la gestion des fichiers académiques (étudiants, modules, notes, emploi du temps, etc.) et offre diverses fonctionnalités accessibles via des routes spécifiques.
 
 ## Accès en ligne
 Vous pouvez également accéder à notre application déployée via le lien suivant :
